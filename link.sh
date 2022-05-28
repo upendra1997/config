@@ -1,1 +1,1 @@
-ln -s .vimrc ~/
+ ln -nsTfr .vimrc ~/.vimrc
