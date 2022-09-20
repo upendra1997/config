@@ -7,6 +7,10 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set mouse=a
+set smartindent
+set tabstop=2
+set expandtab
+set shiftwidth=2
 
 syntax enable
 filetype plugin indent on
@@ -15,15 +19,18 @@ let g:ale_disable_lsp = 1
 
 call plug#begin()
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
 Plug 'rust-lang/rust.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'brnch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'easymotion/vim-easymotion'
+Plug 'joom/vim-commentary'
 call plug#end()
 
 nmap <F8> :TagbarToggle<CR>
@@ -145,6 +152,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " COC end 
 " NerdTree start
+let g:NERDTreeHijackNetrw = 1
 nnoremap <leader>n :NERDTreeFocus<CR>
 
 
