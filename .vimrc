@@ -31,11 +31,9 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'easymotion/vim-easymotion'
 Plug 'joom/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-tsserver'
-Plug 'fannheyward/coc-rust-analyzer'
-Plug 'fannheyward/coc-pyright'
-Plug 'neoclide/coc-java'
 call plug#end()
+
+let g:coc_global_extensions = ['coc-tsserver', 'coc-rust-analyzer', 'coc-pyright', 'coc-java']
 
 nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>v <c-v>
