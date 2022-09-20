@@ -1,3 +1,4 @@
+sudo apt install build-essential
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo chsh -s $(which zsh)
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
