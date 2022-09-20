@@ -32,8 +32,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'joom/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver'
-Plug 'neoclide/coc-rust-analyzer'
-Plug 'neoclide/coc-pyright'
+Plug 'fannheyward/coc-rust-analyzer'
+Plug 'fannheyward/coc-pyright'
 Plug 'neoclide/coc-java'
 call plug#end()
 
