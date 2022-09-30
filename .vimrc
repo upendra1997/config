@@ -33,7 +33,7 @@ Plug 'joom/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-let g:coc_global_extensions = ['coc-tsserver', 'coc-rust-analyzer', 'coc-pyright', 'coc-java']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-rust-analyzer', 'coc-pyright', 'coc-java', 'coc-clojure']
 
 nmap <F8> :TagbarToggle<CR>
 nnoremap <Leader>v <c-v>
