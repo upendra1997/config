@@ -31,6 +31,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'easymotion/vim-easymotion'
 Plug 'joom/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver', 'coc-rust-analyzer', 'coc-pyright', 'coc-java', 'coc-clojure']
