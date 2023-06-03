@@ -22,22 +22,20 @@ local plugins = {
   -- overrde plugin configs
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = overrides.treesitter,
+    opts = overrides.treesitter
   },
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason,
+    opts = overrides.mason
   },
-
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
-
   {
     "mg979/vim-visual-multi",
     lazy = false,
-  }
+  },
 }
 
 return plugins
