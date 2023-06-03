@@ -10,6 +10,9 @@ M.treesitter = {
     "c",
     "rust"
   },
+  indent = {
+    enable = true,
+  }
 }
 
 M.mason = {
@@ -17,6 +20,7 @@ M.mason = {
     -- lua stuff
     "lua-language-server",
     "stylua",
+    "rust_analyzer"
   },
 }
 
