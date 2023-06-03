@@ -36,6 +36,18 @@ local plugins = {
     "mg979/vim-visual-multi",
     lazy = false,
   },
+  -- {
+  --   "TimUntersberger/neogit",
+  --   dependencies = {
+  --     {
+  --       "nvim-lua/plenary.nvim"
+  --     }
+  --   },
+  --   config = function()
+  --     local neogit = require('neogit')
+  --     neogit.setup {}
+  --   end,
+  -- },
 }
 
 return plugins
