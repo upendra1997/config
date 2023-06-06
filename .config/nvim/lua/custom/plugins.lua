@@ -36,6 +36,17 @@ local plugins = {
     "mg979/vim-visual-multi",
     lazy = false,
   },
+  {
+    "tpope/vim-salve",
+    opts = overrides.salve,
+    dependencies = {
+      -- format & linting
+      {
+        "tpope/vim-fireplace",
+        opts = overrides.fireplace,
+      },
+    },
+  },
   -- {
   --   "TimUntersberger/neogit",
   --   dependencies = {
