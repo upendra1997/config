@@ -98,6 +98,7 @@
     binutils
     docker
     coreutils-full
+    pkg-config
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -140,7 +141,7 @@
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
