@@ -136,9 +136,23 @@
   virtualisation.docker.enable = true;
 
   virtualisation.docker.rootless = {
-      enable = true;
-      setSocketVariable = true;
+    enable = true;
+    setSocketVariable = true;
   };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "upendra.upadhyay.97+acme@gmail.com";
+    certs."www.hdggxin.in" = {
+      dnsProvider = "godaddy";
+      # Suplying password files like this will make your credentials world-readable
+      # in the Nix store. This is for demonstration purpose only, do not use this in production.
+      credentialsFile = "${pkgs.writeText "godaddy-creds" ''
+        GODADDY_API_KEY_FILE=/etc/nixos/godaddy_hdggxin_key
+        GODADDY_API_SECRET_FILE=/etc/nixos/godaddy_hdggxin_secret
+      ''}";
+    };
+};
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 80 ];
