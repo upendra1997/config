@@ -151,8 +151,8 @@
         GODADDY_API_KEY_FILE=/etc/nixos/godaddy_hdggxin_key
         GODADDY_API_SECRET_FILE=/etc/nixos/godaddy_hdggxin_secret
       ''}";
+      };
     };
-};
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
