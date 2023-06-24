@@ -57,7 +57,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hdggxin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "docker" "jellyfin" "transmission" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       fzf
       htop
@@ -66,10 +66,13 @@
       ripgrep
       tree-sitter
       nil
+      tiny
+      stig
     ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlOohlz7jA2n/PO47NpAOYvv80szy0tHfA2YLFhbTRzOYgYbAXtsOGkuaiWyEo+SC6ww+e+Ze5Ix6BjJJXHoTn25PwplXerCxl0XEPcXXRGgHCaUkmU6TsL0DGxBkng0AT62XxnviSYtkq6DwMbbQFu9bH0x0xRnUF+eXvIFP4KzgfBeqInw7E+9gxpLqzzfsNyhykBJ+BafHjDL6GCP/cyjgvLnKYqP7wjbk7tlKyGyyXZf6ZSZ5A/w+0nQ1dk/saZMPZDj7PLO0oHTadxeu2Ri+QUkO6NFAtzqIiRPxcas1WMP4CSNPy7wad3Wqgpc3JLNOlGCFjjkGYmOPURZ+CgDu2IWQdhJYh8FiIab+0bNQkJFHY/GhHthX7A+139f4xNsfBDfUN/g57QHPKg2Iqut77eI2hbJ2JPbv0WpbLm2WWknYh0nfGMNIe2lpZCahx6gbyF4V8eBc5WlnaqYmE1rufQ2kEI/bLj2IU/0cfXV4uoo5+uZv0opSEooOuaNU= upendraupadhyay@localhost" # mac
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCi8wz09UM/kE9MwV6jLEfoytsI8PhwIhCG0OyqL8HOqZDlTrfupHfIrG2KStxHnZGv/b0148wVcwkhNwBKF/ngfoRtlBsfWbfqud0sQf1DXOzk8a0lgyA8TI8iqfkhF9Luwf4nI+gnRA05xLjY3ve0jePeR9Iq1kAFW1G5Qn+noAWxTNeSxDZZjlc8AdUaI6JEqHwRfthgcHbwNEWECdq0EhI+UI3oNyYfyqqewO/z5PmficE6j2VbH18bSQMY5K215izWv33uymIcJWm7iPW4xxS9/gJupDwq+glHqGMuzoool8lhIuKaI/oNfTkxsp0ZZszKxdAihgVEA/QqhIvdfh3DRt5U4fIJJd72RCdqRrCduqRPK5VO+jM8YzU4tpx6mRGaH5Ht5sj/1OWNbO8E29hVKO51zs873K73rarmlnyT4GdrqYhhAjCOfjn0U83D9ISUucVOx4h2q3Mvt6zJP589UXoTiuEbEO9GMPhWow01AEbHo3/JLylGIBnf9bM= root@Aartis-iPhone" # aarti iphone
     ];
   };
 
@@ -154,8 +157,15 @@
       };
     };
 
+  services.jellyfin = {
+      enable = true;
+      user = "hdggxin";
+      group = "users";
+    };
+  services.transmission.enable = true;
+
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 8096 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
