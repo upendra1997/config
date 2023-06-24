@@ -162,7 +162,12 @@
       user = "hdggxin";
       group = "users";
     };
-  services.transmission.enable = true;
+
+  services.transmission = {
+      enable = true;
+      user = "hdggxin";
+      group = "users";
+    };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 80 443 8096 ];
