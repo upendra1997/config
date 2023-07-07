@@ -8,6 +8,9 @@
     vim
     git
   ];
+  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.keep-outputs = true;
+  nix.settings.keep-derivations = true;
   users.users.upendra = {
     name = "upendra";
     home = "/Users/upendra";
@@ -24,9 +27,18 @@
         zoom-us
     ];
     programs.git = {
-    enable = true;
-    userName = "Upendra Upadhyay";
-    userEmail = "upendra.upadhyay@gojek.com";
+      enable = true;
+      userName = "Upendra Upadhyay";
+      userEmail = "upendra.upadhyay@gojek.com";
+    };
+    programs.direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true;
+    programs.zsh = {
+      enable = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "git" "direnv" ];
+      };
     };
     home.stateVersion = "23.05";
   };
@@ -39,8 +51,6 @@
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
   # programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
