@@ -21,14 +21,16 @@
     nixpkgs.config.allowUnfree = true;
     home = {
       packages = with pkgs; [
-	jq
-	jrnl
+        iterm2
+        jq
+        jrnl
         emacs
         vscode
         jetbrains.idea-ultimate
         xcodebuild
         slack
         zoom-us
+        postgresql_12
       ];
       shellAliases = {
         vim = "nvim";
@@ -74,17 +76,7 @@
     };
     programs.neovim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [
-        completion-treesitter
-        nvim-treesitter-context
-        nvim-treesitter-endwise
-        nvim-treesitter-refactor
-        nvim-treesitter-textobjects
-        nvim-treesitter.withAllGrammars
-        vim-nix
-        vim-lsp
-        null-ls-nvim
-      ];
+      plugins = with pkgs.vimPlugins; [ ];
     };
     home.stateVersion = "23.05";
   };
@@ -97,14 +89,16 @@
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
+  homebrew = {
+    enable = true;
+    brews = [
+      "postgresql@12"
+      "redis"
+    ];
+  };
+
   programs.zsh.enable = true;
   # programs.fish.enable = true;
-
-  services.gitlab-runner.enable = true;
-  services.postgresql = {
-    enable = true;
-  };
-  services.redis.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
