@@ -25,12 +25,17 @@
         jq
         jrnl
         emacs
+        httpie
+        grpcurl
         vscode
         jetbrains.idea-ultimate
         xcodebuild
         slack
         zoom-us
         postgresql_12
+        redis
+        teleport
+        obsidian
       ];
       shellAliases = {
         vim = "nvim";
@@ -94,6 +99,7 @@
     brews = [
       "postgresql@12"
       "redis"
+      "docker"
     ];
   };
 
