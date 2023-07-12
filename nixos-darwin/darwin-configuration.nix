@@ -36,6 +36,8 @@
         redis
         teleport
         obsidian
+        k9s
+        cloak
       ];
       shellAliases = {
         vim = "nvim";
@@ -62,6 +64,7 @@
       history.extended = true;
       history.size = 99999999999999999;
       initExtraFirst = ''
+      export PATH="/Users/upendra/bin:$PATH"
       '';
       profileExtra = ''
       export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
@@ -73,10 +76,10 @@
         enable = true;
         theme = "robbyrussell";
         plugins = [
-	  "git"
-	  "direnv"
-	  "fzf"
-	  ];
+          "git"
+          "direnv"
+          "fzf"
+        ];
       };
     };
     programs.neovim = {

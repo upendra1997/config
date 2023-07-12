@@ -1,0 +1,28 @@
+[2023-07-08 10:35:48 AM] Hi I am awesome
+
+[2023-07-08 10:36:03 AM] I have setup jrnl
+
+[2023-07-09 11:06:15 AM] I have been wasting away my time configuring system, it was almost one day.
+I should be happy with what I have and try to make it work.
+
+[2023-07-10 09:13:09 AM] today I exercised my share options to chekc wheter money goes to my bank account or share account?
+
+[2023-07-10 09:17:35 AM] show last entry
+
+[2023-07-10 09:17:51 AM] show
+
+[2023-07-12 10:38:13 PM] Haskell is awesome. It have three languages built in.
+1. Term level => the one that we use, which contain real bits during runtime.
+2. Type level => Like C, C++, it constraints terms used like Integers, FLoat, Rational, etc. during compile-time.
+3. Kind level => It constrains Types, saying what kind of type is allowed, etc. during compile time.
+
+haskell provides ways to cross boundaries between these languages.
+1. Functions: Term -> Term
+2. TypeCalsses: Type -> Term
+3. Type Families: Type -> Type
+4. GADT: Term -> Type ; wierd how runtime infomration can effect compile-time??
+
+It doesn;t It allows runtime information to constrains the type, and then we can uses type-classes to constrain term level information.
+
+source: https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/
+source source: https://github.com/soupi/haskell-study-plan#some-advanced-topics
