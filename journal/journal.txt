@@ -26,3 +26,9 @@ It doesn;t It allows runtime information to constrains the type, and then we can
 
 source: https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/
 source source: https://github.com/soupi/haskell-study-plan#some-advanced-topics
+
+[2023-07-12 10:45:58 PM] Haskell always check the instance head and if it matches, then it checks the constraints attached to that head.
+instance <constraints> => C <types>
+                          HEAD
+
+source: https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/ Guiding type inference
