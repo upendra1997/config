@@ -38,6 +38,12 @@
         obsidian
         k9s
         cloak
+        ripgrep
+        fd
+        parallel
+        kubectl
+        tig
+        tmux
       ];
       shellAliases = {
         vim = "nvim";
@@ -102,6 +108,8 @@
     brews = [
       "postgresql@12"
       "redis"
+    ];
+    casks = [
       "docker"
     ];
   };

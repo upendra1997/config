@@ -32,3 +32,18 @@ instance <constraints> => C <types>
                           HEAD
 
 source: https://lexi-lambda.github.io/blog/2021/03/25/an-introduction-to-typeclass-metaprogramming/ Guiding type inference
+
+[2023-07-14 10:38:51 AM] pattern matching a term in haskell reveals type level information and that's how whole GADT works.
+source: https://youtu.be/6snteFntvjM?t=1289
+
+[2023-07-16 03:35:51 PM] way to learn haskell:
+1. cis194 spring 2013
+2. https://github.com/system-f/fp-course
+3. CS240H standford course
+
+[2023-07-21 03:59:57 PM] reading resource directory in jar environment is difficult, so I have used macros for compiling all resource data during compile time and use it in runtime. Which was fun and challenging.
+
+[2023-07-21 06:50:19 PM] today I gave a session on benchamrking and load generation tools and response was okay;
+some action items:
+1. make it more general and available for public use.
+2. talk with other teams in gopay and find, what kind of tools are to be used.
