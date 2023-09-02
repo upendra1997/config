@@ -24,7 +24,12 @@
         iterm2
         jq
         jrnl
-        emacs
+        cairo
+        poppler
+        emacsPackages.pdf-tools
+        emacsPackages.evil
+        emacs29
+        zathura
         httpie
         grpcurl
         vscode
@@ -44,6 +49,7 @@
         kubectl
         tig
         tmux
+        rectangle
       ];
       shellAliases = {
         vim = "nvim";
@@ -101,6 +107,10 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs29;
+  };
   # nix.package = pkgs.nix;
 
   homebrew = {
@@ -108,9 +118,13 @@
     brews = [
       "postgresql@12"
       "redis"
+      "consul"
     ];
     casks = [
       "docker"
+      "firefox"
+      "flycut"
+      "postman"
     ];
   };
 
