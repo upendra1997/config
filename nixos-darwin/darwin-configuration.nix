@@ -29,17 +29,14 @@
         emacsPackages.pdf-tools
         emacsPackages.evil
         emacs29
-        zathura
+        # zathura
         httpie
         grpcurl
         vscode
-        jetbrains.idea-ultimate
         xcodebuild
         slack
-        zoom-us
-        postgresql_12
         redis
-        teleport
+        teleport_12
         obsidian
         k9s
         cloak
@@ -50,6 +47,10 @@
         tig
         tmux
         rectangle
+        colima
+        docker
+        gnupg
+        openssh
       ];
       shellAliases = {
         vim = "nvim";
@@ -62,7 +63,7 @@
     programs.git = {
       enable = true;
       userName = "Upendra Upadhyay";
-      userEmail = "upendra.upadhyay@gojek.com";
+      userEmail = "upendra.upadhyay.97@gmail.com";
     };
     programs.direnv.enable = true;
     programs.fzf.enable = true;
@@ -91,6 +92,7 @@
           "git"
           "direnv"
           "fzf"
+          "gpg-agent"
         ];
       };
     };
@@ -98,7 +100,12 @@
       enable = true;
       plugins = with pkgs.vimPlugins; [ ];
     };
-    home.stateVersion = "23.05";
+
+    
+    programs.gpg.enable = true;
+    # programs.gpg.publicKeys = [ { source = ./pubkeys.txt; } ];
+
+    home.stateVersion = "23.11";
   };
 
   # Use a custom configuration.nix location.
@@ -111,24 +118,32 @@
     enable = true;
     package = pkgs.emacs29;
   };
+
   # nix.package = pkgs.nix;
 
   homebrew = {
     enable = true;
     brews = [
-      "postgresql@12"
+      "postgresql"
       "redis"
       "consul"
     ];
     casks = [
-      "docker"
       "firefox"
       "flycut"
       "postman"
+      "jetbrains-toolbox"
+      "discord"
     ];
   };
 
   programs.zsh.enable = true;
+
+  programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+  };
+
   # programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.

@@ -104,7 +104,7 @@
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
-    emacs
+    emacs29
     nnn
     tmux
     wget
@@ -122,6 +122,18 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    silent = false;
+    persistDerivations = true;
+    loadInNixShell = true;
+    direnvrcExtra = "";
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
+    };
   };
 
   # List services that you want to enable:
@@ -154,17 +166,17 @@
     enable = true;
     setSocketVariable = true;
   };
-
   security.acme = {
     acceptTerms = true;
     defaults.email = "upendra.upadhyay.97+acme@gmail.com";
     certs."www.hdggxin.in" = {
       dnsProvider = "godaddy";
+      dnsPropagationCheck = false;
       # Suplying password files like this will make your credentials world-readable
       # in the Nix store. This is for demonstration purpose only, do not use this in production.
       credentialsFile = "${pkgs.writeText "godaddy-creds" ''
-        GODADDY_API_KEY_FILE=/etc/nixos/godaddy_hdggxin_key
-        GODADDY_API_SECRET_FILE=/etc/nixos/godaddy_hdggxin_secret
+        GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
+        GODADDY_API_SECRET=${builtins.readFile /etc/nixos/godaddy_hdggxin_secret}
       ''}";
       };
     };
