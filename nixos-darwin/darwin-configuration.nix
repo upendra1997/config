@@ -31,6 +31,7 @@ in
         emacsPackages.evil
         emacs29
         # zathura
+        shellcheck
         httpie
         grpcurl
         vscode
@@ -137,6 +138,7 @@ in
     ];
     casks = [
       "firefox"
+      "whatsapp"
       "flycut"
       "postman"
       "jetbrains-toolbox"
