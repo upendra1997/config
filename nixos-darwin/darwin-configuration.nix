@@ -65,6 +65,11 @@
       enable = true;
       userName = "Upendra Upadhyay";
       userEmail = "upendra.upadhyay.97@gmail.com";
+      signing = {
+        key = "A8653EBC1131DDCF";
+        signByDefault = true;
+      };
+      difftastic.enable = true;
     };
     programs.direnv.enable = true;
     programs.fzf.enable = true;
