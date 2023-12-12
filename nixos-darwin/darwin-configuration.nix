@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
-
+object@{ config, pkgs, ... }:
+let username = "upendra";
+in
 {
   imports = [ <home-manager/nix-darwin> ];
   # List packages installed in system profile. To search by name, run:
@@ -13,8 +14,8 @@
   nix.settings.keep-outputs = true;
   nix.settings.keep-derivations = true;
   users.users.upendra = {
-    name = "upendra";
-    home = "/Users/upendra";
+    name = username;
+    home = "/Users/${username}";
   };
 
   home-manager.users.upendra = {pkgs, ...}: {
