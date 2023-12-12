@@ -51,6 +51,7 @@
         docker
         gnupg
         openssh
+        nerdfonts
       ];
       shellAliases = {
         vim = "nvim";
