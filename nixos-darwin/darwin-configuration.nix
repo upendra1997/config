@@ -17,7 +17,9 @@ in {
     nixpkgs.config.allowUnfree = true;
     home = {
       packages = with pkgs;
-        let totp = import ./totp.nix object;
+        let
+          totp = import ./totp.nix object;
+          aegis = import ./aegis.nix object;
         in [
           iterm2
           jq
@@ -53,6 +55,8 @@ in {
           nerdfonts
           totp
           nixfmt
+          openfortivpn
+          aegis
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
