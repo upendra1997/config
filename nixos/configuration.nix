@@ -5,10 +5,9 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -17,7 +16,8 @@
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -37,9 +37,6 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
-  
-
   # Configure keymap in X11
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
@@ -57,7 +54,12 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hdggxin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" "jellyfin" "transmission" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+      "jellyfin"
+      "transmission"
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       fzf
       htop
@@ -79,8 +81,7 @@
   users.users.slaineron = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
+    packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGfqTEN89CavkHkEsEIrst/w7QrfwiRzaCKwTKfWX5y28JCsG2JITiiKn/Rt+VDwvimEJivpZmaOQtU0YxeylCPcP4Edf8+liFBqSnR6F1ty4L4XKqbG75taiWxAA1b1o3VqLymxWh/o4xNRZVPD3eqCnN9u/ppV+XTMr75/7DL2bU5EL1z6WoBMHQPFw9b0r+cU7IbzfAB8vIDaU1j3rcl1C2Wcj2XfkjV0HOiXJsPzkwerDz0HEfGRTuRx6OdQ3mpdf6KKjyVLlLZ1Sry0Elek72BIBNdciLqx6Ep/wpw6B+iRZvAkfRqKKyCy8qSWq5Vg2ouScLvuCzhozA1blpVOicJm1lAJEese/gzWNIHPrlqU0DTfyx88afg3nPg3H8oJ7LQEP/ecW2l2MSPjaKTdwVOlJdk1JbD7pmYewKySxikszNWMD7N1etSipTcW0g/GZ3k5US1J84f8oGWPKSETDWtKHgkxn0hLRehS8LebILJo8Urvtr2ecYQKo3BEk= pendra@slaineron"
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCUF9Riu/uYy1bTlVgYuc3iRXG8YWPS1dHbMH0Jb9zq/9qeoT24sK0QmeInqNIR80Ge0JNC9cr9dPe/pEV+kgpUKzGkxL9+/qbcFdn426LsDCJd1gnMoXRA23s9zo0kzJIuZhATP/NZAoMFTDLvd3M1G214VBhLYX4/d+kRa97wTHv20+lOGSvyEcTLgrtIdgcJR3l8ezMraYKfmu2Rs6xdCUSGIcbtkkuddnYhoZ4sfG88wmtzylxvo/3FgULL4Kd3Z4ioC4N4WFdDb2okDE77oPXGHJEFW+5J8m/cFku6kMxbNCQ3qdMX3VJ6ujSc/bW0Dro7O8jvvqxMZ1MnCiYB9nOqSiSjsK1j4+qRovfEiUfkKUjZDd7a0lfgMgd3pUDlJ97d917PMDd1Uva876HenUoeTcF5wdw+CG3WQ8c1e0t4kCG/NrEBtFxGlsWgniU7RhWdYjSPwQv91EaVkVAIr5DbcysgPehWll6QnrucQiLEekYMG6E9C6oZocSOuLM= pushp@slaineron"
@@ -90,11 +91,7 @@
   users.users.lalit = {
     isNormalUser = true;
     extraGroups = [ "docker" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      htop
-      nodejs_18
-      python3
-    ];
+    packages = with pkgs; [ htop nodejs_18 python3 ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9IZfxgfGyqIbARs0V71IXBilX2OuqbLp4AxmfSvfdW7rQz5l07i/PDLbxPSc3WDRJeMjgekgiZMDg4QMXP3/9X8/VQnB8PKEiQkNfTfVnfeIg2XcOehLuXJl8fPsmxk52ef3Ukvkh81wFd8PtG64sdmYppR1mR1daY02OPG1N+722fzNZDBnEmpYOYEBXP8Ilb2Z7OS9hYcL3AX0veJ/W2tCl7buPNgX9OTPESt5vY2rMuwMkFsRG92zQJd5qoo8il8VocyRIv67lVwyRrw+ZkHpNhAiE58jckY9F1DdwNwDpcBCLJtrVr1QgIVsuw5OcGk7eoDfRC3Xlztcn9x4ZOCOsGD46gCz+nr3FT/iXT4LRQjfzuVHwZrLByI4c2W5cwlbSmfCu/LzXcHK0kHEpLrLxyFTL+aAXe1IK42BWarryJVJ9mYIZZh7wobiZuUyKNw1udR4zkJs+EZoqGG3NxV+xUsPaZQvphFsyURBw2Pwr4T4vX98alMv/1G5qnc8= asus@LAPTOP-NMH6I7SN"
     ];
@@ -141,9 +138,9 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    listenAddresses = [{addr = "localhost";} {addr = "0.0.0.0";}];
+    listenAddresses = [ { addr = "localhost"; } { addr = "0.0.0.0"; } ];
     settings = {
-      GatewayPorts = "yes";  
+      GatewayPorts = "yes";
       PasswordAuthentication = false;
     };
   };
@@ -176,22 +173,24 @@
       # in the Nix store. This is for demonstration purpose only, do not use this in production.
       credentialsFile = "${pkgs.writeText "godaddy-creds" ''
         GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
-        GODADDY_API_SECRET=${builtins.readFile /etc/nixos/godaddy_hdggxin_secret}
+        GODADDY_API_SECRET=${
+          builtins.readFile /etc/nixos/godaddy_hdggxin_secret
+        }
       ''}";
-      };
     };
+  };
 
   services.jellyfin = {
-      enable = true;
-      user = "hdggxin";
-      group = "users";
-    };
+    enable = true;
+    user = "hdggxin";
+    group = "users";
+  };
 
   services.transmission = {
-      enable = true;
-      user = "hdggxin";
-      group = "users";
-    };
+    enable = true;
+    user = "hdggxin";
+    group = "users";
+  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 80 443 8096 9091 ];

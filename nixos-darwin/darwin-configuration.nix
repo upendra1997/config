@@ -1,15 +1,10 @@
 object@{ config, pkgs, ... }:
 let username = "upendra";
-in
-{
+in {
   imports = [ <home-manager/nix-darwin> ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    coreutils-prefixed
-  ];
+  environment.systemPackages = with pkgs; [ vim git coreutils-prefixed ];
   nix.settings.experimental-features = "nix-command flakes";
   nix.settings.keep-outputs = true;
   nix.settings.keep-derivations = true;
@@ -18,46 +13,48 @@ in
     home = "/Users/${username}";
   };
 
-  home-manager.users.upendra = {pkgs, ...}: {
+  home-manager.users.upendra = { pkgs, ... }: {
     nixpkgs.config.allowUnfree = true;
     home = {
-      packages = with pkgs; [
-        iterm2
-        jq
-        jrnl
-        cairo
-        poppler
-        emacsPackages.pdf-tools
-        emacsPackages.evil
-        emacs29
-        # zathura
-        shellcheck
-        httpie
-        grpcurl
-        vscode
-        xcodebuild
-        slack
-        redis
-        teleport_12
-        obsidian
-        k9s
-        cloak
-        ripgrep
-        fd
-        parallel
-        kubectl
-        tig
-        tmux
-        rectangle
-        colima
-        docker
-        gnupg
-        openssh
-        nerdfonts
-      ];
-      shellAliases = {
-        vim = "nvim";
-      };
+      packages = with pkgs;
+        let totp = import ./totp.nix object;
+        in [
+          iterm2
+          jq
+          jrnl
+          cairo
+          poppler
+          emacsPackages.pdf-tools
+          emacsPackages.evil
+          emacs29
+          # zathura
+          shellcheck
+          httpie
+          grpcurl
+          vscode
+          xcodebuild
+          slack
+          redis
+          teleport_12
+          obsidian
+          k9s
+          cloak
+          ripgrep
+          fd
+          parallel
+          kubectl
+          tig
+          tmux
+          rectangle
+          colima
+          docker
+          gnupg
+          openssh
+          nerdfonts
+          totp
+          nixfmt
+        ];
+      shellAliases = { vim = "nvim"; };
       sessionVariables = {
         EDITOR = "nvim";
         VISUAL = "nvim";
@@ -85,10 +82,10 @@ in
       history.extended = true;
       history.size = 99999999999999999;
       initExtraFirst = ''
-      export PATH="/Users/upendra/bin:$PATH"
+        export PATH="/Users/upendra/bin:$PATH"
       '';
       profileExtra = ''
-      export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+        export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
       '';
       prezto.enable = true;
       antidote.enable = true;
@@ -96,12 +93,7 @@ in
       oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
-        plugins = [
-          "git"
-          "direnv"
-          "fzf"
-          "gpg-agent"
-        ];
+        plugins = [ "git" "direnv" "fzf" "gpg-agent" ];
       };
     };
     programs.neovim = {
@@ -109,7 +101,6 @@ in
       plugins = with pkgs.vimPlugins; [ ];
     };
 
-    
     programs.gpg.enable = true;
     # programs.gpg.publicKeys = [ { source = ./pubkeys.txt; } ];
 
@@ -131,26 +122,16 @@ in
 
   homebrew = {
     enable = true;
-    brews = [
-      "postgresql"
-      "redis"
-      "consul"
-    ];
-    casks = [
-      "firefox"
-      "whatsapp"
-      "flycut"
-      "postman"
-      "jetbrains-toolbox"
-      "discord"
-    ];
+    brews = [ "postgresql" "redis" "consul" ];
+    casks =
+      [ "firefox" "whatsapp" "flycut" "postman" "jetbrains-toolbox" "discord" ];
   };
 
   programs.zsh.enable = true;
 
   programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
+    enable = true;
+    enableSSHSupport = true;
   };
 
   # programs.fish.enable = true;
