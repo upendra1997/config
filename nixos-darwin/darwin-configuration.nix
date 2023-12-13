@@ -56,6 +56,7 @@ in {
           totp
           nixfmt
           openfortivpn
+          zoom-us
           aegis
         ];
       shellAliases = { vim = "nvim"; };
