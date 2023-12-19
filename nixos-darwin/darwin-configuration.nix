@@ -128,8 +128,16 @@ in {
   homebrew = {
     enable = true;
     brews = [ "postgresql" "redis" "consul" ];
-    casks =
-      [ "firefox" "whatsapp" "flycut" "postman" "jetbrains-toolbox" "discord" ];
+    casks = [
+      "firefox"
+      "whatsapp"
+      "flycut"
+      "postman"
+      "jetbrains-toolbox"
+      "discord"
+      "wacom-tablet"
+      "openboard"
+    ];
   };
 
   programs.zsh.enable = true;
