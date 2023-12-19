@@ -58,6 +58,7 @@ in {
           openfortivpn
           zoom-us
           aegis
+          drawio
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
