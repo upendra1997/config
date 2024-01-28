@@ -59,6 +59,11 @@ in {
           zoom-us
           aegis
           drawio
+	  colima
+	  ffmpeg_5-full
+	  imagemagick
+    delta
+    bat
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -74,7 +79,8 @@ in {
         key = "A8653EBC1131DDCF";
         signByDefault = true;
       };
-      difftastic.enable = true;
+      # difftastic.enable = true;
+      delta.enable = true;
     };
     programs.direnv.enable = true;
     programs.fzf.enable = true;
@@ -138,6 +144,7 @@ in {
       "discord"
       "wacom-tablet"
       "openboard"
+      "stremio"
     ];
   };
 
