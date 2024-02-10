@@ -98,14 +98,6 @@
     ];
   };
 
-  users.users.lalit = {
-    isNormalUser = true;
-    extraGroups = [ "docker" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [ htop nodejs_18 python3 ];
-    openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9IZfxgfGyqIbARs0V71IXBilX2OuqbLp4AxmfSvfdW7rQz5l07i/PDLbxPSc3WDRJeMjgekgiZMDg4QMXP3/9X8/VQnB8PKEiQkNfTfVnfeIg2XcOehLuXJl8fPsmxk52ef3Ukvkh81wFd8PtG64sdmYppR1mR1daY02OPG1N+722fzNZDBnEmpYOYEBXP8Ilb2Z7OS9hYcL3AX0veJ/W2tCl7buPNgX9OTPESt5vY2rMuwMkFsRG92zQJd5qoo8il8VocyRIv67lVwyRrw+ZkHpNhAiE58jckY9F1DdwNwDpcBCLJtrVr1QgIVsuw5OcGk7eoDfRC3Xlztcn9x4ZOCOsGD46gCz+nr3FT/iXT4LRQjfzuVHwZrLByI4c2W5cwlbSmfCu/LzXcHK0kHEpLrLxyFTL+aAXe1IK42BWarryJVJ9mYIZZh7wobiZuUyKNw1udR4zkJs+EZoqGG3NxV+xUsPaZQvphFsyURBw2Pwr4T4vX98alMv/1G5qnc8= asus@LAPTOP-NMH6I7SN"
-    ];
-  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
