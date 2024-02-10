@@ -62,6 +62,7 @@
     ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       fzf
+      fd
       htop
       nodejs_18
       python3
@@ -70,7 +71,15 @@
       nil
       tiny
       stig
+      nixd
+      jq
       openvpn
+      shellcheck
+      grpcurl
+      delta
+      bat
+      tig
+      parallel
     ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgJ/IGgVKFmpW8KMgNhV5i96+UtA30jdu5B/fKzmHFVDwkevYEZ1bJKYR/mPwmKtuMvXDqgqn4VD/ypXmi/gS1WoH/+XDlSBaos7qihp/D7lY/ZsSGk/3X3uBWBEIWnhPWiQdhnWWs2fJ3lOLS0Ge8sPdaOomDNLKpV0O0MpIW4xGAtYZhM8Xy7oCwDR147m2W9xyAOz4CODbJHlsyaAP7Ny6HkKrh2FsspXjGKH0MQeqlgpwp835GCCYun4pXlpgVSJEcrWx+PlDJytIqT/DvivgY2Scxxe+1Ekk5gmIRSywP7/Cpxk0NfClj3Kmil0FjWC+kYvOPuhE+D0kYpRMfRT1gqmuqtTCjAyNfsBX9y9dYvRbLr/JdUcVGkbvPkzvLTSQ4KTfyVyPLORCR187Wvdqj3omnB+p+IyNDC74FGodsbyZ31de2VSzBfQft2eS+4HSl3SYAtA4G1ZyZR1faU+eExDxdofQkG7el3+oZrKLBlAVcRvRaBoUV0JXz0O5HV1gbvtmR/JZq4pDqSM1lg5deKc02G8/Zk+gQ/P5AXr+4wzXcPOypur/eRNflOGo9gBg2weTZwdiraOb+O871nBiitWLI82urrQADy4c0ufnpJixDoZseeYl2zYr0bcSBoSuyCrrUqGQQu9vDG6Al2p4uLMHBcK2GBoSWwUOUSw== upendra@localhost" # mac m1
