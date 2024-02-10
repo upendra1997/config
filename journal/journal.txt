@@ -47,3 +47,6 @@ source: https://youtu.be/6snteFntvjM?t=1289
 some action items:
 1. make it more general and available for public use.
 2. talk with other teams in gopay and find, what kind of tools are to be used.
+
+[2024-01-30 04:47:57 PM] https://www.mongodb.com/developer/products/mongodb/polymorphic-document-validation/#adding-schema-validation
+these were shared by @siddhant, but these validations are at application level and very much js related.

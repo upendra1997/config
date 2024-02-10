@@ -59,11 +59,12 @@ in {
           zoom-us
           aegis
           drawio
-	  colima
-	  ffmpeg_5-full
-	  imagemagick
-    delta
-    bat
+          colima
+          ffmpeg_5-full
+          imagemagick
+          delta
+          bat
+          nixd
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -134,7 +135,8 @@ in {
 
   homebrew = {
     enable = true;
-    brews = [ "postgresql" "redis" "consul" ];
+    brews = [ "postgresql" "redis" "consul" "mongodb-community" ];
+    taps = ["mongodb/brew"];
     casks = [
       "firefox"
       "whatsapp"
