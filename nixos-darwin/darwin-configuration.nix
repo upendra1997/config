@@ -29,7 +29,7 @@ in {
           emacsPackages.pdf-tools
           emacsPackages.evil
           emacs29
-          # zathura
+          llpp
           shellcheck
           httpie
           grpcurl
