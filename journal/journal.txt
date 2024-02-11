@@ -50,3 +50,6 @@ some action items:
 
 [2024-01-30 04:47:57 PM] https://www.mongodb.com/developer/products/mongodb/polymorphic-document-validation/#adding-schema-validation
 these were shared by @siddhant, but these validations are at application level and very much js related.
+
+[2024-02-11 11:48:48 AM] while trying to replicate false sharing in rust: https://users.rust-lang.org/t/replicating-false-sharing-in-rust/106635
+but was not able to replicate it.
