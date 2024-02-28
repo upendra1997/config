@@ -35,7 +35,13 @@
   # };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
+
+  services.xrdp.enable = true;
+  services.xrdp.defaultWindowManager = "xfce4-session";
+  services.xrdp.openFirewall = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
