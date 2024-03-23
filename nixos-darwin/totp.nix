@@ -1,4 +1,4 @@
-object@{ config, pkgs, ... }:
+{ config, pkgs, ... }:
 with pkgs;
 writeShellApplication {
   name = "totp";

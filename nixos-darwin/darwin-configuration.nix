@@ -22,6 +22,7 @@ in {
           aegis = import ./aegis.nix object;
         in [
           iterm2
+          wezterm
           jq
           jrnl
           cairo
@@ -37,7 +38,7 @@ in {
           xcodebuild
           slack
           redis
-          teleport_12
+          teleport_13
           obsidian
           k9s
           cloak
@@ -65,6 +66,9 @@ in {
           delta
           bat
           nixd
+          kcat
+          protobuf_23
+          confluent-platform
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -147,6 +151,8 @@ in {
       "wacom-tablet"
       "openboard"
       "stremio"
+      "tomighty"
+      "microsoft-remote-desktop"
     ];
   };
 
