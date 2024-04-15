@@ -69,6 +69,9 @@ in {
           kcat
           protobuf_23
           confluent-platform
+          htop
+          android-tools
+          adrgen
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -153,6 +156,8 @@ in {
       "stremio"
       "tomighty"
       "microsoft-remote-desktop"
+      "maccy"
+      "obs"
     ];
   };
 
