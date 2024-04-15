@@ -111,7 +111,7 @@ cmp.setup {
   },
   completion = {
     completeopt = 'menu,menuone,noinsert',
-    autocomplete = false
+    autocomplete = true
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
