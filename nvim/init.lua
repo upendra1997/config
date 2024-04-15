@@ -23,6 +23,7 @@ vim.cmd("set expandtab")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set nu")
 vim.cmd("set clipboard+=unnamedplus")
+vim.cmd("set termguicolors")
 
 require("lazy").setup({
   "joom/vim-commentary"
