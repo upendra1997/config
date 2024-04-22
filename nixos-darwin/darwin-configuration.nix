@@ -72,6 +72,8 @@ in {
           htop
           android-tools
           adrgen
+	  mupdf
+	  ghostscript
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {

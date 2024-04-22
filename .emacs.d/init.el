@@ -7,17 +7,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("f366d4bc6d14dcac2963d45df51956b2409a15b770ec2f6d730e73ce0ca5c8a7" default))
+ '(fido-mode t)
  '(package-selected-packages
-   '(zenburn-theme magit tree-sitter-langs company yasnippet magit markdown-mode cider paredit)))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+   '(magit tree-sitter-langs company yasnippet magit markdown-mode cider paredit)))
 
 (use-package evil
   :ensure t
@@ -49,11 +41,6 @@
 (use-package paredit
   :ensure t)
 
-(use-package zenburn-theme
-  :ensure t
-  :init
-  (load-theme 'zenburn t))
-
 (global-display-line-numbers-mode 1)
 
 (when window-system
@@ -68,3 +55,8 @@
 
 ;; (pdf-tools-install)
 ;; (pdf-loader-install)
+
+(global-set-key [remap list-buffers] 'ibuffer)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-i") 'imenu)
+(repeat-mode 1)
