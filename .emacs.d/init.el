@@ -44,8 +44,8 @@
 (global-display-line-numbers-mode 1)
 
 (when window-system
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
+  (tool-bar-mode nil)
+  (scroll-bar-mode nil))
 
 ;; (use-package evil-collection
 ;;   :after evil

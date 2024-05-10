@@ -72,8 +72,11 @@ in {
           htop
           android-tools
           adrgen
-	  mupdf
-	  ghostscript
+          mupdf
+          ghostscript
+          lua-language-server
+          transmission
+          nom
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -149,7 +152,6 @@ in {
     casks = [
       "firefox"
       "whatsapp"
-      "flycut"
       "postman"
       "jetbrains-toolbox"
       "discord"

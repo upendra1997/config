@@ -30,7 +30,7 @@ local function schemes()
   table.sort(dark)
   table.sort(light)
   table.sort(gogh)
-  return {light = light, dark = dark, gogh = gogh}
+  return { light = light, dark = dark, gogh = gogh }
 end
 
 
