@@ -94,11 +94,13 @@
       resilio-sync
       mypaint
       zathura
+      busybox
     ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgJ/IGgVKFmpW8KMgNhV5i96+UtA30jdu5B/fKzmHFVDwkevYEZ1bJKYR/mPwmKtuMvXDqgqn4VD/ypXmi/gS1WoH/+XDlSBaos7qihp/D7lY/ZsSGk/3X3uBWBEIWnhPWiQdhnWWs2fJ3lOLS0Ge8sPdaOomDNLKpV0O0MpIW4xGAtYZhM8Xy7oCwDR147m2W9xyAOz4CODbJHlsyaAP7Ny6HkKrh2FsspXjGKH0MQeqlgpwp835GCCYun4pXlpgVSJEcrWx+PlDJytIqT/DvivgY2Scxxe+1Ekk5gmIRSywP7/Cpxk0NfClj3Kmil0FjWC+kYvOPuhE+D0kYpRMfRT1gqmuqtTCjAyNfsBX9y9dYvRbLr/JdUcVGkbvPkzvLTSQ4KTfyVyPLORCR187Wvdqj3omnB+p+IyNDC74FGodsbyZ31de2VSzBfQft2eS+4HSl3SYAtA4G1ZyZR1faU+eExDxdofQkG7el3+oZrKLBlAVcRvRaBoUV0JXz0O5HV1gbvtmR/JZq4pDqSM1lg5deKc02G8/Zk+gQ/P5AXr+4wzXcPOypur/eRNflOGo9gBg2weTZwdiraOb+O871nBiitWLI82urrQADy4c0ufnpJixDoZseeYl2zYr0bcSBoSuyCrrUqGQQu9vDG6Al2p4uLMHBcK2GBoSWwUOUSw== upendra@localhost" # mac m1
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCi8wz09UM/kE9MwV6jLEfoytsI8PhwIhCG0OyqL8HOqZDlTrfupHfIrG2KStxHnZGv/b0148wVcwkhNwBKF/ngfoRtlBsfWbfqud0sQf1DXOzk8a0lgyA8TI8iqfkhF9Luwf4nI+gnRA05xLjY3ve0jePeR9Iq1kAFW1G5Qn+noAWxTNeSxDZZjlc8AdUaI6JEqHwRfthgcHbwNEWECdq0EhI+UI3oNyYfyqqewO/z5PmficE6j2VbH18bSQMY5K215izWv33uymIcJWm7iPW4xxS9/gJupDwq+glHqGMuzoool8lhIuKaI/oNfTkxsp0ZZszKxdAihgVEA/QqhIvdfh3DRt5U4fIJJd72RCdqRrCduqRPK5VO+jM8YzU4tpx6mRGaH5Ht5sj/1OWNbO8E29hVKO51zs873K73rarmlnyT4GdrqYhhAjCOfjn0U83D9ISUucVOx4h2q3Mvt6zJP589UXoTiuEbEO9GMPhWow01AEbHo3/JLylGIBnf9bM= root@Aartis-iPhone" # aarti iphone
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHXVGXLaVsptK5gHe4iNvyx6uGEJKocq8Z3iQi76SwZgzXY0NmGgqd+ZULGhOMAqOKhgdsioUo6j7MJLfr54kmXFyS2EnBxuS2io9n7M2GHwOwUKSmZGgD6Id6UZKe8DXpLRvqmANbHceojh9Tawm+iNvyVgKtoLYtT9c4u5Lmf9iHytYVMlPnwQeqLXzo5SaUIk+boAVuHfw4YMLXtkwd/BvY2IkkM6pqiDa17Zq3FSClTH3sk181GJzvEKjllsmzpkUalxviMe0gDGpyGkYI2iDLTGB5UotXV306QNprK4m9XHQcYRRBwU9AXjuTC4I6wryoBIHYH7+zsHFPOayh upend@DESKTOP-MR3PQG5" # papa's computer
     ];
   };
 
