@@ -12,6 +12,13 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+
+  fileSystems."/passport" =
+  { device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
+    fsType = "ntfs-3g";
+    options = [ "rw" "uid=1000"];
+  };
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
