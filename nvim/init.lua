@@ -21,22 +21,28 @@ vim.cmd("set smartindent")
 vim.cmd("set tabstop=2")
 vim.cmd("set expandtab")
 vim.cmd("set shiftwidth=2")
-vim.cmd("set nu")
+vim.cmd("set relativenumber")
 vim.cmd("set clipboard+=unnamedplus")
-vim.cmd("set termguicolors")
+-- vim.cmd("set termguicolors")
 
 require("lazy").setup({
   "joom/vim-commentary"
 , "tpope/vim-surround"
 , {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5'
+    'nvim-telescope/telescope.nvim', tag = '0.1.8'
   , dependencies = { 'nvim-lua/plenary.nvim' }
   }
 , "neovim/nvim-lspconfig"
 , 'hrsh7th/nvim-cmp'
 , 'hrsh7th/cmp-nvim-lsp'
 , 'saadparwaiz1/cmp_luasnip'
-, 'L3MON4D3/LuaSnip'
+, {
+    'L3MON4D3/LuaSnip'
+  , dependencies = {
+      'nvim-treesitter/nvim-treesitter'
+    , 'nvim-tree/nvim-web-devicons'
+    }
+  }
 })
 
 -- setting up telescope
@@ -45,6 +51,18 @@ vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fr', builtin.registers, {})
+vim.keymap.set('n', '<leader>ft', builtin.treesitter, {})
+vim.keymap.set('n', '<leader>gr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>gci', builtin.lsp_incoming_calls, {})
+vim.keymap.set('n', '<leader>gco', builtin.lsp_outgoing_calls, {})
+vim.keymap.set('n', '<leader>gk', builtin.lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>gs', builtin.lsp_workspace_symbols, {})
+vim.keymap.set('n', '<leader>gS', builtin.lsp_dynamic_workspace_symbols, {})
+vim.keymap.set('n', '<leader>gK', builtin.diagnostics, {})
+vim.keymap.set('n', '<leader>gi', builtin.lsp_implementations, {})
+vim.keymap.set('n', '<leader>gd', builtin.lsp_definitions, {})
+vim.keymap.set('n', '<leader>gy', builtin.lsp_type_definitions, {})
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
