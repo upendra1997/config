@@ -23,7 +23,9 @@ vim.cmd("set expandtab")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set relativenumber")
 vim.cmd("set clipboard+=unnamedplus")
--- vim.cmd("set termguicolors")
+vim.cmd("set termguicolors")
+-- vim.cmd("set colorscheme vim")
+vim.cmd("colorscheme default")
 
 require("lazy").setup({
   "joom/vim-commentary"
@@ -172,7 +174,7 @@ cmp.setup {
   }),
   window = {
     completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
   },
   sources = {
     { name = 'nvim_lsp' },
