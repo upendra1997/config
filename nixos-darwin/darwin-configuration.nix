@@ -20,6 +20,8 @@ in {
         let
           totp = import ./totp.nix object;
           aegis = import ./aegis.nix object;
+          customEmacsPackages = pkgs.emacs.pkgs.overrideScope
+            (self: super: { emacs = pkgs.emacs29; });
         in [
           iterm2
           wezterm
@@ -27,18 +29,34 @@ in {
           jrnl
           cairo
           poppler
-          emacsPackages.pdf-tools
-          emacsPackages.evil
-          emacs29
+          (customEmacsPackages.withPackages (epkgs:
+            with epkgs; [
+              evil
+              vterm
+              pdf-tools
+              nixpkgs-fmt
+              nixos-options
+              nix-mode
+              go-mode
+              magit
+              haskell-mode
+              rust-mode
+            ]))
+          cmake
           llpp
           shellcheck
+          rustup
+          go
+          gopls
+          graphviz
           httpie
           grpcurl
+          grpcui
           vscode
           xcodebuild
           slack
           redis
-          teleport_13
+          teleport_14
           obsidian
           k9s
           cloak
@@ -55,7 +73,7 @@ in {
           openssh
           nerdfonts
           totp
-          nixfmt
+          nixfmt-classic
           openfortivpn
           zoom-us
           aegis
@@ -77,6 +95,9 @@ in {
           lua-language-server
           transmission
           nom
+          ghc
+          haskell-language-server
+          # lorien
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -101,7 +122,7 @@ in {
     programs.zsh = {
       enable = true;
       syntaxHighlighting.enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableVteIntegration = true;
       history.expireDuplicatesFirst = true;
       history.extended = true;
@@ -129,7 +150,8 @@ in {
     programs.gpg.enable = true;
     # programs.gpg.publicKeys = [ { source = ./pubkeys.txt; } ];
 
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.11";
+    programs.home-manager.enable = true;
   };
 
   # Use a custom configuration.nix location.
@@ -138,17 +160,17 @@ in {
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  services.emacs = {
-    enable = true;
-    package = pkgs.emacs29;
-  };
+  # services.emacs = {
+  #   enable = true;
+  #   package = pkgs.emacs29;
+  # };
 
   # nix.package = pkgs.nix;
 
   homebrew = {
     enable = true;
     brews = [ "postgresql" "redis" "consul" "mongodb-community" ];
-    taps = ["mongodb/brew"];
+    taps = [ "mongodb/brew" ];
     casks = [
       "firefox"
       "whatsapp"
@@ -162,6 +184,7 @@ in {
       "microsoft-remote-desktop"
       "maccy"
       "obs"
+      "the-unarchiver"
     ];
   };
 
