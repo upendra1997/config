@@ -98,6 +98,7 @@ in {
           ghc
           haskell-language-server
           # lorien
+          # rnote
         ];
       shellAliases = { vim = "nvim"; };
       sessionVariables = {
@@ -185,6 +186,7 @@ in {
       "maccy"
       "obs"
       "the-unarchiver"
+      "jordanbaird-ice"
     ];
   };
 
