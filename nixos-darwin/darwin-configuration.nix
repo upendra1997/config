@@ -187,6 +187,7 @@ in {
       "obs"
       "the-unarchiver"
       "jordanbaird-ice"
+      "stats"
     ];
   };
 
