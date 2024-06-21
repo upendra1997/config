@@ -113,6 +113,8 @@ in
           figlet
           ffmpeg-full
           luajitPackages.jsregexp
+          gdb
+          delve
         ];
         openssh.authorizedKeys.keys = [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgJ/IGgVKFmpW8KMgNhV5i96+UtA30jdu5B/fKzmHFVDwkevYEZ1bJKYR/mPwmKtuMvXDqgqn4VD/ypXmi/gS1WoH/+XDlSBaos7qihp/D7lY/ZsSGk/3X3uBWBEIWnhPWiQdhnWWs2fJ3lOLS0Ge8sPdaOomDNLKpV0O0MpIW4xGAtYZhM8Xy7oCwDR147m2W9xyAOz4CODbJHlsyaAP7Ny6HkKrh2FsspXjGKH0MQeqlgpwp835GCCYun4pXlpgVSJEcrWx+PlDJytIqT/DvivgY2Scxxe+1Ekk5gmIRSywP7/Cpxk0NfClj3Kmil0FjWC+kYvOPuhE+D0kYpRMfRT1gqmuqtTCjAyNfsBX9y9dYvRbLr/JdUcVGkbvPkzvLTSQ4KTfyVyPLORCR187Wvdqj3omnB+p+IyNDC74FGodsbyZ31de2VSzBfQft2eS+4HSl3SYAtA4G1ZyZR1faU+eExDxdofQkG7el3+oZrKLBlAVcRvRaBoUV0JXz0O5HV1gbvtmR/JZq4pDqSM1lg5deKc02G8/Zk+gQ/P5AXr+4wzXcPOypur/eRNflOGo9gBg2weTZwdiraOb+O871nBiitWLI82urrQADy4c0ufnpJixDoZseeYl2zYr0bcSBoSuyCrrUqGQQu9vDG6Al2p4uLMHBcK2GBoSWwUOUSw== upendra@localhost" # mac m1
@@ -211,6 +213,7 @@ in
         acceptTerms = true;
         defaults.email = "upendra.upadhyay.97+acme@gmail.com";
         certs."www.hdggxin.in" = {
+          group = "users";
           dnsProvider = "godaddy";
           dnsPropagationCheck = true;
           # Suplying password files like this will make your credentials world-readable
@@ -221,6 +224,8 @@ in
               builtins.readFile /etc/nixos/godaddy_hdggxin_secret
             }
           ''}";
+          postRun = "openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
+          chown acme:users cert.pfx";
         };
       };
 
@@ -236,9 +241,65 @@ in
         group = "users";
       };
 
+      services.nginx = {
+        enable = true;
+        group = "users";
+        virtualHosts."www.hdggxin.in" = {
+          addSSL = true;
+          useACMEHost = "www.hdggxin.in";
+          locations = {
+            "= /jellyfin" = {
+              extraConfig = ''
+                return 302 https://$host/jellyfin/;
+              '';
+            };
+            "/jellyfin/" = {
+              proxyPass = "https://127.0.0.1:8920/jellyfin/";
+              extraConfig = ''
+                # required when the target is also TLS server with multiple hosts
+                proxy_ssl_server_name on;
+                # required when the server wants to use HTTP Authentication
+                proxy_pass_header Authorization;
+
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Forwarded-Protocol $scheme;
+                proxy_set_header X-Forwarded-Host $http_host;
+
+                # Disable buffering when the nginx proxy gets very resource heavy upon streaming
+                proxy_buffering off;
+                '';
+            };
+            "/jellyfin/socket/" = {
+              proxyPass = "https://127.0.0.1:8920/jellyfin/";
+              proxyWebsockets = true; # needed if you need to use WebSocket
+              extraConfig = ''
+                # Proxy Jellyfin Websockets traffic
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Forwarded-Protocol $scheme;
+                proxy_set_header X-Forwarded-Host $http_host;
+              '';
+            };
+          };
+        };
+      };
+
+
+      # services.trillium-server = {
+      # };
+
       # Open ports in the firewall.
-      networking.firewall.allowedTCPPorts = [ 22 80 443 8096 9091 ];
-      networking.firewall.allowedUDPPorts = [ 9091 ];
+      networking.firewall.allowedTCPPorts = [ 22 80 443 9091 ];
+      networking.firewall.allowedUDPPorts = [
+        9091 # transmisson
+      ];
       # Or disable the firewall altogether.
       # networking.firewall.enable = false;
 
