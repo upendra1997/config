@@ -97,6 +97,7 @@ in {
           nom
           ghc
           haskell-language-server
+          flameshot
           # lorien
           # rnote
         ];
@@ -187,6 +188,7 @@ in {
       "obs"
       "the-unarchiver"
       "stats"
+      "flameshot"
     ];
   };
 
