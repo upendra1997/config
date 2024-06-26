@@ -24,8 +24,8 @@ vim.cmd("set shiftwidth=2")
 vim.cmd("set relativenumber")
 vim.cmd("set clipboard+=unnamedplus")
 vim.cmd("set termguicolors")
--- vim.cmd("set colorscheme vim")
-vim.cmd("colorscheme default")
+vim.cmd("colorscheme vim")
+-- vim.cmd("colorscheme default")
 
 require("lazy").setup({
   "joom/vim-commentary"

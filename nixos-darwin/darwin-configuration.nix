@@ -189,6 +189,7 @@ in {
       "the-unarchiver"
       "stats"
       "flameshot"
+      "trilium-notes"
     ];
   };
 
