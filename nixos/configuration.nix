@@ -80,7 +80,6 @@ in
         extraGroups = [
           "wheel"
           "docker"
-          "jellyfin"
           "transmission"
         ]; # Enable ‘sudo’ for the user.
         packages = with pkgs; [
@@ -211,8 +210,8 @@ in
       };
       security.acme = {
         acceptTerms = true;
-        defaults.email = "upendra.upadhyay.97+acme@gmail.com";
         certs."www.hdggxin.in" = {
+          email = "upendra.upadhyay.97+acme@gmail.com";
           group = "users";
           dnsProvider = "godaddy";
           dnsPropagationCheck = true;
@@ -226,6 +225,7 @@ in
           ''}";
           postRun = "openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
           chown acme:users cert.pfx";
+          extraDomainNames = ["hdggxin.in"];
         };
       };
 
@@ -287,13 +287,24 @@ in
                 proxy_set_header X-Forwarded-Host $http_host;
               '';
             };
+            "/notes/" = {
+              proxyPass = "http://127.0.0.1:8080/";
+              extraConfig = ''
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+                proxy_cache_bypass $http_upgrade;
+              '';
+            };
           };
         };
       };
 
 
-      # services.trillium-server = {
-      # };
+      services.trilium-server = {
+        enable = true;
+      };
 
       # Open ports in the firewall.
       networking.firewall.allowedTCPPorts = [ 22 80 443 9091 ];
