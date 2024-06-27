@@ -245,13 +245,11 @@ in
         enable = true;
         group = "users";
         virtualHosts."www.hdggxin.in" = {
-          addSSL = true;
+          forceSSL = true;
           useACMEHost = "www.hdggxin.in";
           root = "/var/www/hdggxin.in";
+          serverAliases = ["hdggxin.in"];
           locations = {
-            "/resume/" = {
-              root = "/var/www/hdggxin.in/resume/";
-            };
             "= /jellyfin" = {
               extraConfig = ''
                 return 302 https://$host/jellyfin/;
