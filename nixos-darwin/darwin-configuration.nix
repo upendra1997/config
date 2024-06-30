@@ -190,6 +190,8 @@ in {
       "stats"
       "flameshot"
       "trilium-notes"
+      # "xournal-plus-plus"
+      # "krita"
     ];
   };
 
