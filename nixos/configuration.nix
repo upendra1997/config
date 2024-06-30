@@ -108,7 +108,6 @@ in
           resilio-sync
           mypaint
           zathura
-          busybox
           figlet
           ffmpeg-full
           luajitPackages.jsregexp
