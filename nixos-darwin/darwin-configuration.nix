@@ -26,6 +26,7 @@ in {
           iterm2
           wezterm
           jq
+          yq
           jrnl
           cairo
           poppler
@@ -98,6 +99,7 @@ in {
           ghc
           haskell-language-server
           flameshot
+          stern
           # lorien
           # rnote
         ];
@@ -171,8 +173,11 @@ in {
 
   homebrew = {
     enable = true;
-    brews = [ "postgresql" "redis" "consul" "mongodb-community" ];
-    taps = [ "mongodb/brew" ];
+    brews = [ "postgresql"
+              "redis"
+              "consul"
+              "mongodb-community" ];
+    taps = [ "mongodb/brew" "grishka/grishka" ];
     casks = [
       "firefox"
       "whatsapp"
@@ -190,6 +195,7 @@ in {
       "stats"
       "flameshot"
       "trilium-notes"
+      "grishka/grishka/neardrop"
       # "xournal-plus-plus"
       # "krita"
     ];
