@@ -35,6 +35,7 @@ require("lazy").setup({
   , dependencies = { 'nvim-lua/plenary.nvim' }
   }
 , "neovim/nvim-lspconfig"
+, "github/copilot.vim"
 , 'hrsh7th/nvim-cmp'
 , 'hrsh7th/cmp-nvim-lsp'
 , 'saadparwaiz1/cmp_luasnip'
@@ -71,7 +72,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- setting up lspconfig
 local lspconfig = require('lspconfig')
-local servers = { 'pyright', 'tsserver', 'clangd', 'nixd', 'rust_analyzer', 'bufls', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
+local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'bufls', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
