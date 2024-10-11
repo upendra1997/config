@@ -35,6 +35,7 @@ in {
           wezterm
           jq
           yq
+          sq
           jrnl
           cairo
           poppler
@@ -81,6 +82,7 @@ in {
           gnupg
           openssh
           nerdfonts
+          pyright
           totp
           nixfmt-classic
           openfortivpn
@@ -109,6 +111,8 @@ in {
           flameshot
           stern
           customClojure
+          m-cli
+          losslesscut-bin
           # lorien
           # rnote
         ];
@@ -205,6 +209,7 @@ in {
       "flameshot"
       "trilium-notes"
       "grishka/grishka/neardrop"
+      "deskpad"
       # "xournal-plus-plus"
       # "krita"
     ];
