@@ -145,6 +145,7 @@ in
         packages = with pkgs; [
           wine
           google-chrome
+          mypaint
         ];
       };
 
