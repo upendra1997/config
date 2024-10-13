@@ -146,6 +146,7 @@ in
           wine
           google-chrome
           mypaint
+          lutris
         ];
       };
 
