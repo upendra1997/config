@@ -147,7 +147,7 @@ in
           google-chrome
           mypaint
           lutris
-          mupdf
+          zathura
         ];
       };
 
