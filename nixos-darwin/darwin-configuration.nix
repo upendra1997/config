@@ -113,6 +113,7 @@ in {
           customClojure
           m-cli
           losslesscut-bin
+          zathura
           # lorien
           # rnote
         ];

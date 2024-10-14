@@ -36,13 +36,13 @@ end
 
 -- This is where you actually apply your config choices
 
-config.font = wezterm.font 'FiraCode Nerd Font'
+config.font = wezterm.font 'Iosevka Nerd Font'
 config.window_background_opacity = 0.80
 config.window_decorations = "RESIZE"
 -- config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
-config.font_size = 16.0
+config.font_size = 20.0
 
 -- local schemes = schemes()
 
