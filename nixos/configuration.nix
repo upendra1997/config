@@ -56,7 +56,7 @@ in
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.autoLogin.relogin = true;
       services.displayManager.sddm.settings = { Autologin = {
-        User = "SDU";
+        User = "sdu";
         };
       };
       services.xserver.desktopManager.xfce.enable = true;
@@ -147,6 +147,7 @@ in
           google-chrome
           mypaint
           lutris
+          mupdf
         ];
       };
 
