@@ -15,8 +15,9 @@
     "sr_mod"
     "rtsx_usb_sdmmc"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
@@ -43,4 +44,11 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages = with pkgs; [
+    amdvlk
+    driversi686Linux.amdvlk
+    rocmPackages.clr.icd
+    clinfo
+  ];
 }

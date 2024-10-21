@@ -53,6 +53,7 @@ in
 
       # Enable the X11 windowing system.
       services.xserver.enable = true;
+      # services.xserver.videoDrivers = [ "amdgpu" ];
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.autoLogin.relogin = true;
       services.displayManager.sddm.settings = { Autologin = {
