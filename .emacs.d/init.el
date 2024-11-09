@@ -44,6 +44,10 @@
   :ensure t
   :init)
 
+(use-package direnv
+ :config
+ (direnv-mode))
+
 (global-display-line-numbers-mode 1)
 
 (when window-system
