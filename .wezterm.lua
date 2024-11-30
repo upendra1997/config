@@ -51,6 +51,7 @@ config.font_size = 20.0
 -- wezterm.log_error(random_theme)
 -- config.color_scheme = "GruvboxDark" -- random_theme
 config.color_scheme = 'Everforest Dark Hard (Gogh)'
+config.front_end = "WebGpu"
 
 
 -- and finally, return the configuration to wezterm
