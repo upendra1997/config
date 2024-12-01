@@ -199,8 +199,8 @@ in {
             # "grishka/grishka"
            ];
     casks = [
-       "obs"
        "jetbrains-toolbox"
+       # "obs"
        # "whatsapp"
        # "firefox"
        # "postman"
