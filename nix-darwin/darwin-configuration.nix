@@ -22,14 +22,14 @@ in {
         let
           totp = import ./totp.nix object;
           aegis = import ./aegis.nix object;
-          customClojure = pkgs.clojure.overrideAttrs (finalAttrs: previousAttrs: {
-            version = "1.12.0.1479";
-            src = pkgs.fetchurl {
-              url = "https://github.com/clojure/brew-install/releases/download/${finalAttrs.version}/clojure-tools-${finalAttrs.version}.tar.gz";
-              hash = "sha256-KlFcRXVd8e3zeP36+zgCUcdzbeLbFffb5V7XKV8NKWw=";
-              };
-            jdk = pkgs.jdk22;
-          });
+          # customClojure = pkgs.clojure.overrideAttrs (finalAttrs: previousAttrs: {
+          #   version = "1.12.0.1479";
+          #   src = pkgs.fetchurl {
+          #     url = "https://github.com/clojure/brew-install/releases/download/${finalAttrs.version}/clojure-tools-${finalAttrs.version}.tar.gz";
+          #     hash = "sha256-KlFcRXVd8e3zeP36+zgCUcdzbeLbFffb5V7XKV8NKWw=";
+          #     };
+          #   jdk = pkgs.jdk22;
+          # });
           customEmacsPackages = pkgs.emacs.pkgs.overrideScope
             (self: super: { emacs = pkgs.emacs29; });
         in [
@@ -111,7 +111,7 @@ in {
           haskell-language-server
           flameshot
           stern
-          # customClojure
+          clojure
           m-cli
           zathura
           maccy

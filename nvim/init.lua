@@ -72,7 +72,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- setting up lspconfig
 local lspconfig = require('lspconfig')
-local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'bufls', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
+local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'buf_ls', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
