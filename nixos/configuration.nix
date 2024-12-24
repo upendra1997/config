@@ -66,6 +66,9 @@ in
       services.xrdp.defaultWindowManager = "xfce4-session";
       services.xrdp.openFirewall = true;
 
+
+      services.blueman.enable = true;
+
       # Configure keymap in X11
       # services.xserver.layout = "us";
       # services.xserver.xkbOptions = "eurosign:e,caps:escape";
@@ -76,6 +79,8 @@ in
       # Enable sound.
       sound.enable = true;
       hardware.pulseaudio.enable = true;
+      hardware.bluetooth.enable = true;
+      hardware.bluetooth.powerOnBoot = true;
 
       # Enable touchpad support (enabled default in most desktopManager).
       # services.xserver.libinput.enable = true;
