@@ -125,7 +125,6 @@ in
           gdb
           delve
           dig
-          slack-term
         ];
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
@@ -155,9 +154,7 @@ in
           mypaint
           lutris
           zathura
-          # vscode
           # eww
-          # nerdfonts
         ];
       };
 
@@ -176,7 +173,6 @@ in
         docker
         coreutils-full
         pkg-config
-        slack-term
       ];
 
       # Some programs need SUID wrappers, can be configured further or are
