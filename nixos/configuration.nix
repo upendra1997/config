@@ -132,6 +132,7 @@ in
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6mgs2umsNYmeGRI5uUsvgJBI0GOER5RsrpBFcp2CWp hdggxin@hdggxin" # papa's computer
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPPS8auuy6hEKeLuMn1h1C320gta/sFrK4plP2It97NZ" # Samsung
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKF0zwuGl4L9sYHKN9LlBMdzEgbvxjOt/B28QbsO1E/ upendra@st-upendra1" # Mac M3
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhCrSYdjZLawaHt3e1qAVSouoiscYY1vUBONrlqEPY/ jsw@JSWCL-HYD-L0058" # Papa dell laptop
         ];
       };
 
@@ -344,7 +345,14 @@ in
       networking.firewall.allowedUDPPorts = [
         9091 # transmisson
       ];
-      system.autoUpgrade.enable = true;
+      system.autoUpgrade = {
+        enable = true;
+        flags = [
+          "--update-input"
+          "nixpkgs"
+          "--commit-lock-file"
+        ];
+      };
       system.autoUpgrade.allowReboot = true;
       # Or disable the firewall altogether.
       # networking.firewall.enable = false;
