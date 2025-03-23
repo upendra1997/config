@@ -6,6 +6,7 @@
 
   outputs = { self, nixpkgs }: # , vscode-server }:
       let
+      # system = "x86_64-linux"; # check if we can remove --impure from the configuration.nix
       system = builtins.currentSystem;
       pkgs = import nixpkgs { inherit system; };
     in

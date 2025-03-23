@@ -350,25 +350,28 @@ in
       };
 
 
-      services.trilium-server = {
-        enable = true;
-      };
+      # services.trilium-server = {
+      #   enable = true;
+      # };
 
       # Open ports in the firewall.
       networking.firewall.allowedTCPPorts = [ 22 80 443 9091 ];
       networking.firewall.allowedUDPPorts = [
         9091 # transmisson
       ];
-      system.autoUpgrade = {
+      system.autoUpgrade = { # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
         enable = true;
+        allowReboot = true;
         flake = "$(readlink -f /etc/nixos)";
         flags = [
+          "--impure" # Remove this in future
+          "--show-trace"
           "--update-input"
           "nixpkgs"
           "--commit-lock-file"
+          "-L"
         ];
       };
-      system.autoUpgrade.allowReboot = true;
       # Or disable the firewall altogether.
       # networking.firewall.enable = false;
 
