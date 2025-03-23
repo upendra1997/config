@@ -77,8 +77,15 @@ in
       # services.printing.enable = true;
 
       # Enable sound.
-      sound.enable = true;
-      hardware.pulseaudio.enable = true;
+      security.rtkit.enable = true;
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+      };
+
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = true;
 
@@ -94,12 +101,7 @@ in
           "transmission"
         ]; # Enable ‘sudo’ for the user.
         packages = with pkgs; [
-          fzf
-          fd
-          htop
           nodejs_18
-          python3
-          ripgrep
           tree-sitter
           nil
           tiny
@@ -125,6 +127,8 @@ in
           gdb
           delve
           dig
+          vscode
+          uv
         ];
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
@@ -155,6 +159,8 @@ in
           mypaint
           lutris
           zathura
+          vscode
+          nerdfonts
           # eww
         ];
       };
@@ -163,8 +169,9 @@ in
       # $ nix search wget
       environment.systemPackages = with pkgs; [
         neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+        python3Full
         git
-        emacs29
+        emacs
         nnn
         tmux
         wget
@@ -174,6 +181,13 @@ in
         docker
         coreutils-full
         pkg-config
+        xclip
+        fd
+        ripgrep
+        htop
+        gnat
+        acpi
+        fzf
       ];
 
       # Some programs need SUID wrappers, can be configured further or are
@@ -347,6 +361,7 @@ in
       ];
       system.autoUpgrade = {
         enable = true;
+        flake = "$(readlink -f /etc/nixos)";
         flags = [
           "--update-input"
           "nixpkgs"
