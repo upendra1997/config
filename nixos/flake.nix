@@ -1,10 +1,10 @@
 {
-  # inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
+  inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   };
 
-  outputs = { self, nixpkgs }: # , vscode-server }:
+  outputs = { self, nixpkgs, vscode-server }:
       let
       # system = "x86_64-linux"; # check if we can remove --impure from the configuration.nix
       system = builtins.currentSystem;
@@ -14,8 +14,8 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
-        # vscode-server.nixosModules.default
-        # ({ config, pkgs, ... }: { services.vscode-server.enable = true; })
+        vscode-server.nixosModules.default
+        ({ config, pkgs, ... }: { services.vscode-server.enable = true; })
       ];
     };
   };
