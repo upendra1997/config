@@ -9,15 +9,30 @@
   ./hardware-configuration.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.supportedFilesystems = [ "ntfs" ];
 
-  fileSystems."/passport" =
-    { device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000"];
+    fileSystems."/passport" = {
+      device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000"];
+    };
+    fileSystems."/c" = {
+      device = "/dev/disk/by-uuid/28C47C0FC47BDE0E";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000"];
+    };
+    fileSystems."/d" = {
+      device = "/dev/disk/by-uuid/7268F0B768F07AE5";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000"];
+    };
+    fileSystems."/e" = {
+      device = "/dev/disk/by-uuid/7E3C54C03C5474DD";
+      fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000"];
     };
 
     networking.hostName = "nixos"; # Define your hostname.
@@ -331,7 +346,7 @@
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
     # accidentally delete configuration.nix.
-    system.copySystemConfiguration = true;
+    # system.copySystemConfiguration = true;
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
