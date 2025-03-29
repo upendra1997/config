@@ -196,8 +196,6 @@
     };
     services.fail2ban.enable = true;
 
-    services.sshd.enable = true;
-
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.optimise.automatic = true;
     nix.settings.auto-optimise-store = true;
