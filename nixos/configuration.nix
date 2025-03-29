@@ -49,6 +49,7 @@
 
     services.xserver.enable = true;
     services.xserver.autorun = false;
+    services.xserver.videoDrivers = [ "modesetting" ];
     services.xserver.displayManager.startx.enable = true;
 
     services.xrdp.enable = true;
@@ -63,7 +64,7 @@
     console = {
       useXkbConfig = true;
       earlySetup = true;
-      font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
+      font = "${pkgs.terminus_font}/share/consolefonts/ter-112n.psf.gz";
       packages = with pkgs; [ terminus_font ];
     };
 
@@ -84,7 +85,7 @@
     hardware.bluetooth.powerOnBoot = true;
 
     # Enable touchpad support (enabled default in most desktopManager).
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.hdggxin = {
@@ -199,7 +200,6 @@
         AcceptEnv *
       '';
     };
-    services.fail2ban.enable = true;
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.optimise.automatic = true;
