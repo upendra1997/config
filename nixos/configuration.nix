@@ -60,7 +60,12 @@
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.options = "eurosign:e,caps:escape";
     services.xserver.xkb.variant = "dvorak";
-    console.useXkbConfig = true;
+    console = {
+      useXkbConfig = true;
+      earlySetup = true;
+      font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
+      packages = with pkgs; [ terminus_font ];
+    };
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
