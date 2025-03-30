@@ -60,11 +60,11 @@
       # Configure keymap in X11
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.options = "eurosign:e,caps:escape";
-    services.xserver.xkb.variant = "dvorak";
+    # services.xserver.xkb.variant = "dvorak";
     console = {
       useXkbConfig = true;
       earlySetup = true;
-      font = "${pkgs.terminus_font}/share/consolefonts/ter-112n.psf.gz";
+      font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
       packages = with pkgs; [ terminus_font ];
     };
 
@@ -94,6 +94,7 @@
         "wheel" # Enable ‘sudo’ for the user.
         "docker"
         "transmission"
+        "video"
       ];
       packages = with pkgs; [
         nodejs_18
@@ -211,6 +212,11 @@
     programs.neovim.enable = true;
 
     programs.neovim.defaultEditor = true;
+
+    programs.sway = {
+      enable = true;
+    };
+    programs.light.enable = true;
 
     services.logind.lidSwitch = "ignore";
 
