@@ -6,4 +6,10 @@
 /var/lib/transmission -> /passport/Torrents/transmission
 /etc/nixos -> /home/hdggxin/config/nixos
 ```
+# For nixos autoupgrade
+in file `/root/.gitconfig`
+```
+[safe]
+    directory = *
+```
 
