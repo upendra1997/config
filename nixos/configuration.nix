@@ -51,6 +51,7 @@
     services.xserver.autorun = false;
     services.xserver.videoDrivers = [ "modesetting" ];
     services.xserver.displayManager.startx.enable = true;
+    services.gnome.gnome-keyring.enable = true;
 
     services.xrdp.enable = true;
     services.xrdp.openFirewall = true;
