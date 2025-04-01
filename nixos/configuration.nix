@@ -35,7 +35,10 @@
       options = [ "rw" "uid=1000"];
     };
 
-    networking.hostName = "nixos"; # Define your hostname.
+    networking = {
+      hostName = "nixos";
+      domain = "hdggxin.in";
+    };
     networking.networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
       # logLevel = "DEBUG";
@@ -54,6 +57,74 @@
     services.gnome.gnome-keyring.enable = true;
 
     services.xrdp.enable = true;
+    services.samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          "workgroup" = "WORKGROUP";
+          "security" = "user";
+          #"use sendfile" = "yes";
+          #"max protocol" = "smb2";
+          # note: localhost is the ipv6 localhost ::1
+          "hosts allow" = "192.168.0. 192.168.1. 127.0.0.1 localhost";
+          "hosts deny" = "0.0.0.0/0";
+          "guest account" = "nobody";
+          "map to guest" = "bad user";
+          "log level" = "3";
+        };
+        "c" = {
+          "path" = "/c";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "valid users" = "hdggxin";
+          "force user" = "hdggxin";
+          "force group" = "users";
+        };
+        "d" = {
+          "path" = "/d";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "valid users" = "hdggxin";
+          "force user" = "hdggxin";
+          "force group" = "users";
+        };
+        "e" = {
+          "path" = "/e";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "valid users" = "hdggxin";
+          "force user" = "hdggxin";
+          "force group" = "users";
+        };
+        "passport" = {
+          "path" = "/passport";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "valid users" = "hdggxin";
+          "force user" = "hdggxin";
+          "force group" = "users";
+        };
+      };
+    };
+
+    services.samba-wsdd = {
+      enable = true;
+      openFirewall = true;
+    };
+
     services.xrdp.openFirewall = true;
 
     services.blueman.enable = true;
@@ -128,6 +199,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPPS8auuy6hEKeLuMn1h1C320gta/sFrK4plP2It97NZ" # Samsung
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKF0zwuGl4L9sYHKN9LlBMdzEgbvxjOt/B28QbsO1E/ upendra@st-upendra1" # Mac M3
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhCrSYdjZLawaHt3e1qAVSouoiscYY1vUBONrlqEPY/ jsw@JSWCL-HYD-L0058" # Papa dell laptop
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMejS7mFUl13woV1Va9BMagnCphk+mKml42Qvwa1kuYd upend@DESKTOP-F650LTD" # Lenovo G5080
       ];
     };
 
@@ -334,9 +406,16 @@
     # };
 
     # Open ports in the firewall.
-    networking.firewall.allowedTCPPorts = [ 22 80 443 9091 ];
+    networking.firewall.allowedTCPPorts = [
+      22
+      80
+      443
+      9091
+      1900 # jellyfin
+    ];
     networking.firewall.allowedUDPPorts = [
       9091 # transmisson
+      7395 # jellyfin
     ];
     system.autoUpgrade = { # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
       enable = true;
@@ -352,7 +431,8 @@
       ];
     };
     # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
+    networking.firewall.enable = false;
+    networking.firewall.allowPing= true;
 
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
