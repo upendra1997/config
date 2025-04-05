@@ -44,6 +44,7 @@
 # a matter of taste (uncomment if you dare)
 
 [core]
+	autocrlf = input
         # fsmonitor = true
         # untrackedCache = true
 [merge]
