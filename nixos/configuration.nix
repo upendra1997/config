@@ -419,7 +419,7 @@
     ];
     system.autoUpgrade = { # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
       enable = true;
-      allowReboot = true;
+      allowReboot = false;
       flake = "$(readlink -f /etc/nixos)";
       flags = [
         "--impure" # Remove this in future
