@@ -34,6 +34,13 @@
       fsType = "ntfs-3g";
       options = [ "rw" "uid=1000"];
     };
+    # fileSystems."/gphotos" = {
+    #   depends = [
+    #     "/passport"
+    #   ];
+    #   device = "/passport/gphotos.img";
+    #   options = [ "loop" "rw" "user" "uid=1000"];
+    # };
 
     networking = {
       hostName = "nixos";
@@ -236,6 +243,7 @@
       acpi
       fzf
       file
+      qemu-utils
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -404,6 +412,55 @@
 
     # services.trilium-server = {
     #   enable = true;
+    # };
+
+    systemd.mounts = [
+      {
+        what = "/passport/gphotos.img";
+        where = "/gphotos";
+        type = "auto"; # or use actual fs type like ext4
+        options = "loop,rw,user,uid=1000";
+        partOf = [ "resilio.service" ];
+      }
+    ];
+
+    systemd.services.resilio = {
+      description = "Resilio Sync";
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "gphotos.mount" ];
+      after = [ "gphotos.mount" ];
+      serviceConfig = {
+        ExecStart = "/home/hdggxin/resilio/start.sh";
+        Restart = "always";
+        User = "hdggxin"; # Optional, if it should run as a specific user
+      };
+      path = [ pkgs.resilio-sync ];
+    };
+
+    # systemd.services.mount-gphotos-disk= {
+    #   wantedBy = [ "resilio.service" ];
+    #   requiredBy = [ "resilio.service" ];
+    #   path = [ pkgs.qemu-utils pkgs.kmod pkgs.util-linux ];
+    #   serviceConfig.Type = "oneshot";
+    #   serviceConfig.RemainAfterExit = true;
+    #   script = ''
+    #     # qemu-img commit /passport/gphotos.img.qcow2
+    #     # rm -rf /passport/gphotos.img.qcow2
+    #     mount -o loop /passport/gphotos.img /gphotos
+    #     # Mount steps for the qcow2 image
+    #     # modprobe nbd max_part=8
+    #     # qemu-nbd -c /dev/nbd0 /passport/gphotos.img.qcow2
+    #     # mount /dev/nbd0 /home/hdggxin/gphotos
+    #     # Fix Corruption
+    #     # sudo fsck.vfat -a /passport/gphotos.img
+    #   '';
+    #   preStop = ''
+    #     umount /gphotos
+    #     # Unmout steps for the qcow2
+    #     # umount /dev/nbd0 /home/hdggxin/gphotos
+    #     # qemu-nbd -d /dev/nbd0
+    #     # rmmod nbd
+    #   '';
     # };
 
     # Open ports in the firewall.
