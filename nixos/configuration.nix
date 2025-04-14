@@ -426,7 +426,9 @@
 
     systemd.services.resilio = {
       description = "Resilio Sync";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = [
+        # "multi-user.target"
+      ];
       requires = [ "gphotos.mount" ];
       after = [ "gphotos.mount" ];
       serviceConfig = {
