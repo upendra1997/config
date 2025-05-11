@@ -48,7 +48,7 @@
     };
     networking.networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
-      # logLevel = "DEBUG";
+      unmanaged = [ "type:wifi" ];
     };
 
     # Set your time zone.
@@ -473,12 +473,70 @@
     #   '';
     # };
 
+    systemd.network = {
+      enable = true;
+      networks = {
+        "10-wired" = {
+          matchConfig.Name = "enp3s0";
+          networkConfig = {
+            Address = "192.168.1.240/24";
+            Gateway = "192.168.1.1";
+          };
+        };
+        "20-wireless" = {
+          matchConfig.Name = "wlp0s29f7u7";
+          networkConfig = {
+            Address = "192.168.1.240/24";
+            Gateway = "192.168.1.1";
+          };
+        };
+      };
+    };
+
+    # # Dispatcher script to disable Wi-Fi when Ethernet is up
+    # environment.etc."NetworkManager/dispatcher.d/10-eth-wifi-switch".text = ''
+    #   #!/bin/bash
+    #   IFACE="$1"
+    #   STATUS="$2"
+
+    #   if [ "$IFACE" = "enp3s0" ]; then
+    #     if [ "$STATUS" = "up" ]; then
+    #       nmcli device disconnect wlp0s29f7u7
+    #     elif [ "$STATUS" = "down" ]; then
+    #       nmcli device connect wlp0s29f7u7
+    #     fi
+    #   fi
+    # '';
+
+    # environment.etc."wpa_supplicant/wlp0s29f7u7.conf".text = ''
+    #   ctrl_interface=/run/wpa_supplicant
+    #   network={
+    #     ssid="SDU_Family"
+    #     psk=e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7
+    #   }
+    # '';
+
+    # systemd.tmpfiles.rules = [
+    #   "f /etc/NetworkManager/dispatcher.d/10-eth-wifi-switch 0755 root root -"
+    # ];
+
+    networking.useDHCP = false;
+    networking.useNetworkd = true;
+    networking.wireless = {
+      enable = true;
+      networks = {
+        "SDU_Family" = {         # SSID with spaces and/or special characters
+          pskRaw="e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7";
+        };
+      };
+    };
     networking.nat = {
       enable = true;
       enableIPv6 = true;
       externalInterface = "lo";
       internalInterfaces = [ "wg0" ];
     };
+
     networking.wg-quick = {
       interfaces = {
         wg0 = {
@@ -492,14 +550,12 @@
           # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
           postUp = ''
             ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o wg0 -j ACCEPT
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
           '';
 
           # This undoes the above command
           preDown = ''
             ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
-            ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -o wg0 -j ACCEPT
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
           '';
 
