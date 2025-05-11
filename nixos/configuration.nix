@@ -524,6 +524,7 @@
     networking.useNetworkd = true;
     networking.wireless = {
       enable = true;
+      scanOnLowSignal = true;
       networks = {
         "SDU_Family" = {         # SSID with spaces and/or special characters
           pskRaw="e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7";
