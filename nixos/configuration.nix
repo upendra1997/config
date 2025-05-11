@@ -198,6 +198,13 @@
         dig
         uv
         imagemagick
+        minicom
+        rustup
+        probe-rs-tools
+        libunwind
+        gcc-arm-embedded
+        usbutils
+        acl
       ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
@@ -245,6 +252,9 @@
       fzf
       file
       qemu-utils
+      wireguard-go
+      wireguard-tools
+      wireguard-ui
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
@@ -284,6 +294,13 @@
         AcceptEnv *
       '';
     };
+
+    services.udev.extraRules = ''
+    # CMSIS-DAP for microbit
+    ACTION!="add|change", GOTO="microbit_rules_end"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", ATTR{idProduct}=="0204", MODE="0660", TAG+="uaccess"
+    LABEL="microbit_rules_end"
+    '';
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.optimise.automatic = true;
@@ -396,16 +413,6 @@
               proxy_set_header X-Forwarded-Host $http_host;
             '';
           };
-          "/notes/" = {
-            proxyPass = "http://127.0.0.1:8080/";
-            extraConfig = ''
-              proxy_http_version 1.1;
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection 'upgrade';
-              proxy_set_header Host $host;
-              proxy_cache_bypass $http_upgrade;
-            '';
-          };
         };
       };
     };
@@ -466,6 +473,62 @@
     #   '';
     # };
 
+    networking.nat = {
+      enable = true;
+      enableIPv6 = true;
+      externalInterface = "lo";
+      internalInterfaces = [ "wg0" ];
+    };
+    networking.wg-quick = {
+      interfaces = {
+        wg0 = {
+          # Determines the IP address and subnet of the server's end of the tunnel interface.
+          address = [ "10.100.0.1/24" ];
+
+          # The port that WireGuard listens to. Must be accessible by the client.
+          listenPort = 51820;
+
+          # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+          # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+          postUp = ''
+            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
+          '';
+
+          # This undoes the above command
+          preDown = ''
+            ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -o wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
+          '';
+
+          generatePrivateKeyFile = true;
+          privateKeyFile = "/etc/wireguard/private.key";
+
+          peers = [
+            # List of allowed peers.
+            { # Pushpendra Windows
+              publicKey = "bB41BBvAABXWPVl7tnQ4Vc6zit2gklDVLVEbkbadx2g=";
+              # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+              allowedIPs = [ "10.100.0.2/32" ];
+            }
+            { # Upendra Windows
+              publicKey = "wZeJlxXNLSEKm9CXbTX0WutLHMEVsqzIrPcJtw/YaDY=";
+              allowedIPs = [ "10.100.0.3/32" ];
+            }
+            { # Samsung Tablet
+              publicKey = "kOjGcKa+vVlQBgHX61U0+E+rhwJy8c0US549+5sth3g=";
+              allowedIPs = ["10.100.0.4/32"];
+            }
+          ];
+        };
+      };
+    };
+
+    networking.networkmanager.dns = "systemd-resolved";
+    services.resolved.enable = true;
+
     # Open ports in the firewall.
     networking.firewall.allowedTCPPorts = [
       22
@@ -473,10 +536,21 @@
       443
       9091
       1900 # jellyfin
+      51820 # wireguard
+      8443
+      5045
     ];
     networking.firewall.allowedUDPPorts = [
+      22
+      80
+      443
       9091 # transmisson
       7395 # jellyfin
+      51820 # wireguard
+      8443
+      27005
+      27015
+      5045
     ];
     system.autoUpgrade = { # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
       enable = true;
@@ -492,8 +566,10 @@
       ];
     };
     # Or disable the firewall altogether.
-    networking.firewall.enable = false;
+    networking.firewall.enable = true;
     networking.firewall.allowPing= true;
+    # networking.firewall.logRefusedPackets = true;
+    # networking.firewall.logRefusedUnicastsOnly = true;
 
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
