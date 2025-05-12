@@ -521,7 +521,11 @@
     # ];
 
     networking.useDHCP = false;
-    networking.useNetworkd = true;
+    networking.dhcpcd.extraConfig = ''
+     interface enp0s25
+      metric 100
+    '';
+    networking.useNetworkd = false;
     networking.wireless = {
       enable = true;
       scanOnLowSignal = true;
@@ -565,7 +569,7 @@
 
           peers = [
             # List of allowed peers.
-            { # Pushpendra Windows
+            { # Pushpendra Lenovo Legion
               publicKey = "bB41BBvAABXWPVl7tnQ4Vc6zit2gklDVLVEbkbadx2g=";
               # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
               allowedIPs = [ "10.100.0.2/32" ];
@@ -577,6 +581,14 @@
             { # Samsung Tablet
               publicKey = "kOjGcKa+vVlQBgHX61U0+E+rhwJy8c0US549+5sth3g=";
               allowedIPs = ["10.100.0.4/32"];
+            }
+            { # Pushpendra Oneplus Smartphone
+              publicKey = "54fOXY9z9z83hBpdEUQT8CUki0WngRgumIavlKJPOT4=";
+              allowedIPs = ["10.100.0.5/32"];
+            }
+            { # Pushpendra Office Mac
+              publicKey = "x7lRZy7ifGmT9hwgotUrAa445ie3qj1Xdj20ReW4XVU=";
+              allowedIPs = ["10.100.0.6/32"];
             }
           ];
         };
