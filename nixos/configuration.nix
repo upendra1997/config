@@ -14,31 +14,39 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.supportedFilesystems = [ "ntfs" ];
 
-    fileSystems."/passport" = {
+    fileSystems."/mnt/passport" = {
+      mountPoint = "/mnt/passport";
       device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
-      fsType = "ntfs-3g";
+      fsType = "ntfs-3g, nofail";
       options = [ "rw" "uid=1000"];
+      neededForBoot = false;
     };
-    fileSystems."/c" = {
+    fileSystems."/mnt/c" = {
+      mountPoint = "/mnt/c";
       device = "/dev/disk/by-uuid/28C47C0FC47BDE0E";
-      fsType = "ntfs-3g";
+      fsType = "ntfs-3g, nofail";
       options = [ "rw" "uid=1000"];
+      neededForBoot = false;
     };
-    fileSystems."/d" = {
+    fileSystems."/mnt/d" = {
+      mountPoint = "/mnt/d";
       device = "/dev/disk/by-uuid/7268F0B768F07AE5";
-      fsType = "ntfs-3g";
+      fsType = "ntfs-3g, nofail";
       options = [ "rw" "uid=1000"];
+      neededForBoot = false;
     };
-    fileSystems."/e" = {
+    fileSystems."/mnt/e" = {
+      mountPoint = "/mnt/e";
       device = "/dev/disk/by-uuid/7E3C54C03C5474DD";
-      fsType = "ntfs-3g";
+      fsType = "ntfs-3g, nofail";
       options = [ "rw" "uid=1000"];
+      neededForBoot = false;
     };
-    # fileSystems."/gphotos" = {
+    # fileSystems."/mnt/gphotos" = {
     #   depends = [
     #     "/passport"
     #   ];
-    #   device = "/passport/gphotos.img";
+    #   device = "/mnt/passport/gphotos.img";
     #   options = [ "loop" "rw" "user" "uid=1000"];
     # };
 
@@ -48,7 +56,7 @@
     };
     networking.networkmanager = {
       enable = true; # Easiest to use and most distros use this by default.
-      unmanaged = [ "type:wifi" ];
+      # unmanaged = [ "type:wifi" ];
     };
 
     # Set your time zone.
@@ -78,10 +86,9 @@
           "hosts deny" = "0.0.0.0/0";
           "guest account" = "nobody";
           "map to guest" = "bad user";
-          "log level" = "3";
         };
         "c" = {
-          "path" = "/c";
+          "path" = "/mnt/c";
           "browseable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -92,7 +99,7 @@
           "force group" = "users";
         };
         "d" = {
-          "path" = "/d";
+          "path" = "/mnt/d";
           "browseable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -103,7 +110,7 @@
           "force group" = "users";
         };
         "e" = {
-          "path" = "/e";
+          "path" = "/mnt/e";
           "browseable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -114,7 +121,18 @@
           "force group" = "users";
         };
         "passport" = {
-          "path" = "/passport";
+          "path" = "/mnt/passport";
+          "browseable" = "yes";
+          "read only" = "no";
+          "guest ok" = "no";
+          "create mask" = "0644";
+          "directory mask" = "0755";
+          "valid users" = "hdggxin";
+          "force user" = "hdggxin";
+          "force group" = "users";
+        };
+        "nixos" = {
+          "path" = "/";
           "browseable" = "yes";
           "read only" = "no";
           "guest ok" = "no";
@@ -140,12 +158,12 @@
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.options = "eurosign:e,caps:escape";
     # services.xserver.xkb.variant = "dvorak";
-    console = {
-      useXkbConfig = true;
-      earlySetup = true;
-      font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
-      packages = with pkgs; [ terminus_font ];
-    };
+    # console = {
+    #   useXkbConfig = true;
+    #   earlySetup = true;
+    #   font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
+    #   packages = with pkgs; [ terminus_font ];
+    # };
 
     # Enable CUPS to print documents.
     services.printing.enable = true;
@@ -424,8 +442,8 @@
 
     systemd.mounts = [
       {
-        what = "/passport/gphotos.img";
-        where = "/gphotos";
+        what = "/mnt/passport/gphotos.img";
+        where = "/mnt/gphotos";
         type = "auto"; # or use actual fs type like ext4
         options = "loop,rw,user,uid=1000";
         partOf = [ "resilio.service" ];
@@ -437,8 +455,8 @@
       wantedBy = [
         # "multi-user.target"
       ];
-      requires = [ "gphotos.mount" ];
-      after = [ "gphotos.mount" ];
+      requires = [ "mnt-gphotos.mount" ];
+      after = [ "mnt-gphotos.mount" ];
       serviceConfig = {
         ExecStart = "/home/hdggxin/resilio/start.sh";
         Restart = "always";
@@ -483,13 +501,13 @@
             Gateway = "192.168.1.1";
           };
         };
-        "20-wireless" = {
-          matchConfig.Name = "wlp0s29f7u7";
-          networkConfig = {
-            Address = "192.168.1.240/24";
-            Gateway = "192.168.1.1";
-          };
-        };
+        # "20-wireless" = {
+        #   matchConfig.Name = "wlp0s29f7u7";
+        #   networkConfig = {
+        #     Address = "192.168.1.240/24";
+        #     Gateway = "192.168.1.1";
+        #   };
+        # };
       };
     };
 
@@ -520,21 +538,21 @@
     #   "f /etc/NetworkManager/dispatcher.d/10-eth-wifi-switch 0755 root root -"
     # ];
 
-    networking.useDHCP = false;
-    networking.dhcpcd.extraConfig = ''
-     interface enp0s25
-      metric 100
-    '';
-    networking.useNetworkd = false;
-    networking.wireless = {
-      enable = true;
-      scanOnLowSignal = true;
-      networks = {
-        "SDU_Family" = {         # SSID with spaces and/or special characters
-          pskRaw="e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7";
-        };
-      };
-    };
+    # networking.useDHCP = false;
+    # networking.dhcpcd.extraConfig = ''
+    #  interface enp0s25
+    #   metric 100
+    # '';
+    # networking.useNetworkd = false;
+    # networking.wireless = {
+    #   enable = true;
+    #   scanOnLowSignal = true;
+    #   networks = {
+    #     "SDU_Family" = {         # SSID with spaces and/or special characters
+    #       pskRaw="e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7";
+    #     };
+    #   };
+    # };
     networking.nat = {
       enable = true;
       enableIPv6 = true;
@@ -636,7 +654,7 @@
     };
     # Or disable the firewall altogether.
     networking.firewall.enable = true;
-    networking.firewall.allowPing= true;
+    # networking.firewall.allowPing= true;
     # networking.firewall.logRefusedPackets = true;
     # networking.firewall.logRefusedUnicastsOnly = true;
 
