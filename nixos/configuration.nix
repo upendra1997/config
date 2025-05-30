@@ -194,7 +194,7 @@
         "video"
       ];
       packages = with pkgs; [
-        nodejs_18
+        nodejs
         tree-sitter
         nil
         tiny
@@ -647,6 +647,7 @@
       enable = true;
       allowReboot = false;
       flake = "$(readlink -f /etc/nixos)";
+      # channel = "https://nixos.org/channels/nixos-25.05"; # Cannot be set together with flake
       flags = [
         "--impure" # Remove this in future
         "--show-trace"
@@ -673,6 +674,6 @@
     # this value at the release version of the first install of this system.
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "24.11"; # Did you read the comment?
+    system.stateVersion = "25.05"; # Did you read the comment?
 }
 
