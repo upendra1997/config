@@ -378,7 +378,7 @@
     };
 
     services.transmission = {
-      enable = true;
+      enable = false;
       user = "hdggxin";
       group = "users";
     };
@@ -607,6 +607,10 @@
             { # Pushpendra Office Mac
               publicKey = "x7lRZy7ifGmT9hwgotUrAa445ie3qj1Xdj20ReW4XVU=";
               allowedIPs = ["10.100.0.6/32"];
+            }
+            { # Upendra Pixel
+              publicKey = "NOAdPnad0kGCMECcF8nRiT5q72Qp5FevIUjMnlb5SWA=";
+              allowedIPs = ["10.100.0.7/32"];
             }
           ];
         };
