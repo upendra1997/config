@@ -1,6 +1,6 @@
 -- will see how primeogen have his vim configured.
 -- sadly, I only saw a clickbait.
--- 
+--
 -- now trying lazy vim. https://github.com/folke/lazy.nvim
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -29,23 +29,26 @@ vim.cmd("colorscheme vim")
 
 require("lazy").setup({
   "joom/vim-commentary"
-, "tpope/vim-surround"
+  , "tpope/vim-surround"
 , {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8'
-  , dependencies = { 'nvim-lua/plenary.nvim' }
-  }
+  'nvim-telescope/telescope.nvim',
+  tag = '0.1.8'
+  ,
+  dependencies = { 'nvim-lua/plenary.nvim' }
+}
 , "neovim/nvim-lspconfig"
 , "github/copilot.vim"
 , 'hrsh7th/nvim-cmp'
 , 'hrsh7th/cmp-nvim-lsp'
 , 'saadparwaiz1/cmp_luasnip'
 , {
-    'L3MON4D3/LuaSnip'
-  , dependencies = {
-      'nvim-treesitter/nvim-treesitter'
+  'L3MON4D3/LuaSnip'
+  ,
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter'
     , 'nvim-tree/nvim-web-devicons'
-    }
   }
+}
 })
 
 -- setting up telescope
@@ -72,7 +75,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- setting up lspconfig
 local lspconfig = require('lspconfig')
-local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'buf_ls', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
+local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -137,7 +140,7 @@ cmp.setup {
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
-    ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-y>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
@@ -148,7 +151,7 @@ cmp.setup {
       if luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       end
-      end, { 'i', 's' }),
+    end, { 'i', 's' }),
     ['<C-h>'] = cmp.mapping(function()
       if luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
@@ -180,6 +183,6 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'path'}
+    { name = 'path' }
   },
 }
