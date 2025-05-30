@@ -14,6 +14,12 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.supportedFilesystems = [ "ntfs" ];
 
+    nix.gc = {
+      automatic = true;
+      randomizedDelaySec = "14m";
+      options = "--delete-older-than 30d";
+    };
+
     fileSystems."/mnt/passport" = {
       mountPoint = "/mnt/passport";
       device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
