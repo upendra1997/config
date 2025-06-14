@@ -89,7 +89,7 @@
         #"use sendfile" = "yes";
         #"max protocol" = "smb2";
         # note: localhost is the ipv6 localhost ::1
-        "hosts allow" = "192.168.0. 192.168.1. 127.0.0.1 localhost";
+        "hosts allow" = "10.100.0. 192.168.0. 192.168.1. 127.0.0.1 localhost";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
@@ -193,6 +193,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hdggxin = {
+    shell = pkgs.fish;
     isNormalUser = true;
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
@@ -223,11 +224,12 @@
         libunwind
         usbutils
         acl
-      ] ++ [
+      ] ++ [ # programming language and LSPs
         lua-language-server
         pyright
         clang
         gdb
+        go
         nodejs
         tree-sitter
         uv
@@ -238,6 +240,16 @@
         nixfmt
         gopls
         clojure-lsp
+      ] ++ [ # fish packages
+        fishPlugins.z
+        fishPlugins.transient-fish
+        fishPlugins.sponge
+        fishPlugins.puffer
+        fishPlugins.plugin-git
+        fishPlugins.autopair
+        fishPlugins.humantime-fish
+        fishPlugins.fzf
+        fishPlugins.done
       ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPweedtJiRm/qMcdmudRT7aW4xCi7vT0nmBEhv7gDWmq" # android
@@ -264,6 +276,7 @@
 
   environment.systemPackages = with pkgs; [
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    busybox
     transmission_4
     python3Full
     git
@@ -342,6 +355,19 @@
 
   nixpkgs.config.allowUnfree = true;
   # nixpkgs.config.allowBroken = true;
+
+  environment.shellAliases = {
+    vim = "nvim";
+    e = "emacsclient";
+  };
+
+  programs.fish = {
+    enable = true;
+    useBabelfish = true;
+    vendor.completions.enable = true;
+    vendor.config.enable = true;
+    vendor.functions.enable = true;
+  };
 
   programs.neovim.enable = true;
 
@@ -625,6 +651,10 @@
           { # Upendra Pixel
             publicKey = "NOAdPnad0kGCMECcF8nRiT5q72Qp5FevIUjMnlb5SWA=";
             allowedIPs = [ "10.100.0.7/32" ];
+          }
+          { # Lalit's Computer
+            publicKey = "vHUIVYCPqHjIV5nWw/U3BnwzyjwxQ+GF94m5Esox5CQ=";
+            allowedIPs = [ "10.100.0.8/32" ];
           }
         ];
       };
