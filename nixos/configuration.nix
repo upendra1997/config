@@ -225,6 +225,7 @@
         usbutils
         acl
       ] ++ [ # programming language and LSPs
+        bear
         lua-language-server
         pyright
         clang
@@ -239,6 +240,7 @@
         nixd
         nixfmt
         gopls
+        libclang
         clojure-lsp
       ] ++ [ # fish packages
         fishPlugins.z
