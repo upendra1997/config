@@ -258,7 +258,7 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCi8wz09UM/kE9MwV6jLEfoytsI8PhwIhCG0OyqL8HOqZDlTrfupHfIrG2KStxHnZGv/b0148wVcwkhNwBKF/ngfoRtlBsfWbfqud0sQf1DXOzk8a0lgyA8TI8iqfkhF9Luwf4nI+gnRA05xLjY3ve0jePeR9Iq1kAFW1G5Qn+noAWxTNeSxDZZjlc8AdUaI6JEqHwRfthgcHbwNEWECdq0EhI+UI3oNyYfyqqewO/z5PmficE6j2VbH18bSQMY5K215izWv33uymIcJWm7iPW4xxS9/gJupDwq+glHqGMuzoool8lhIuKaI/oNfTkxsp0ZZszKxdAihgVEA/QqhIvdfh3DRt5U4fIJJd72RCdqRrCduqRPK5VO+jM8YzU4tpx6mRGaH5Ht5sj/1OWNbO8E29hVKO51zs873K73rarmlnyT4GdrqYhhAjCOfjn0U83D9ISUucVOx4h2q3Mvt6zJP589UXoTiuEbEO9GMPhWow01AEbHo3/JLylGIBnf9bM= root@Aartis-iPhone" # aarti iphone
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6mgs2umsNYmeGRI5uUsvgJBI0GOER5RsrpBFcp2CWp hdggxin@hdggxin" # papa's computer
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPPS8auuy6hEKeLuMn1h1C320gta/sFrK4plP2It97NZ" # Samsung
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKF0zwuGl4L9sYHKN9LlBMdzEgbvxjOt/B28QbsO1E/ upendra@st-upendra1" # Mac M3
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8hvnQV7nSG5bfCZnt7s7LueIsxTt+bmg0PLYanFdL8 upendra@st-upendra2" # Mac M3
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhCrSYdjZLawaHt3e1qAVSouoiscYY1vUBONrlqEPY/ jsw@JSWCL-HYD-L0058" # Papa dell laptop
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMejS7mFUl13woV1Va9BMagnCphk+mKml42Qvwa1kuYd upend@DESKTOP-F650LTD" # Lenovo G5080
     ];
@@ -300,6 +300,7 @@
     acpi
     fzf
     file
+    sqlite-interactive
     qemu-utils
     wireguard-go
     wireguard-tools
