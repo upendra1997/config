@@ -614,9 +614,10 @@
 
         # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
         # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+        # TODO remove -I INPUT 1 when the server and the wireguard becomes different.
         postUp = ''
           ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -A INPUT -i wg0 -j ACCEPT
+          ${pkgs.iptables}/bin/iptables -I INPUT 1 -i wg0 -j ACCEPT
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
         '';
 
