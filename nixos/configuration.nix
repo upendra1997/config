@@ -655,10 +655,6 @@
             publicKey = "NOAdPnad0kGCMECcF8nRiT5q72Qp5FevIUjMnlb5SWA=";
             allowedIPs = [ "10.100.0.7/32" ];
           }
-          { # Lalit's Computer
-            publicKey = "vHUIVYCPqHjIV5nWw/U3BnwzyjwxQ+GF94m5Esox5CQ=";
-            allowedIPs = [ "10.100.0.8/32" ];
-          }
         ];
       };
     };
