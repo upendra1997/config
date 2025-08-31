@@ -305,6 +305,11 @@
     wireguard-go
     wireguard-tools
     wireguard-ui
+    firefox
+    #SWAY
+    slurp # screenshot functionality
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    mako
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -380,9 +385,21 @@
     enable = true;
     wrapperFeatures.gtk = true;
   };
+  # programs.waybar.enable = true;
+
   programs.light.enable = true;
 
   services.logind.lidSwitch = "ignore";
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "hdggxin";
+      };
+    };
+  };
 
   virtualisation.docker.enable = true;
 
@@ -572,25 +589,25 @@
   #   '';
   # };
 
-  systemd.network = {
-    enable = true;
-    networks = {
-      "10-wired" = {
-        matchConfig.Name = "enp3s0";
-        networkConfig = {
-          Address = "192.168.1.240/24";
-          Gateway = "192.168.1.1";
-        };
-      };
-      # "20-wireless" = {
-      #   matchConfig.Name = "wlp0s29f7u7";
-      #   networkConfig = {
-      #     Address = "192.168.1.240/24";
-      #     Gateway = "192.168.1.1";
-      #   };
-      # };
-    };
-  };
+  # systemd.network = {
+  #   enable = true;
+  #   networks = {
+  #     "10-wired" = {
+  #       matchConfig.Name = "enp3s0";
+  #       networkConfig = {
+  #         Address = "192.168.1.240/24";
+  #         Gateway = "192.168.1.1";
+  #       };
+  #     };
+  #     # "20-wireless" = {
+  #     #   matchConfig.Name = "wlp0s29f7u7";
+  #     #   networkConfig = {
+  #     #     Address = "192.168.1.240/24";
+  #     #     Gateway = "192.168.1.1";
+  #     #   };
+  #     # };
+  #   };
+  # };
 
   # # Dispatcher script to disable Wi-Fi when Ethernet is up
   # environment.etc."NetworkManager/dispatcher.d/10-eth-wifi-switch".text = ''
