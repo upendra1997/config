@@ -363,7 +363,6 @@
   nix.settings.auto-optimise-store = true;
 
   nixpkgs.config.allowUnfree = true;
-  # nixpkgs.config.allowBroken = true;
 
   environment.shellAliases = {
     vim = "nvim";
@@ -386,7 +385,6 @@
     enable = true;
     wrapperFeatures.gtk = true;
   };
-  # programs.waybar.enable = true;
 
   programs.light.enable = true;
 
@@ -413,12 +411,6 @@
     certs."www.hdggxin.in" = {
       email = "upendra.upadhyay.97+acme@gmail.com";
       group = "users";
-      # enableDebugLogs = true;
-      # server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      # dnsProvider = "godaddy";
-      # dnsPropagationCheck = true;
-      # credentialsFile = "${pkgs.writeText "godaddy-creds" ''
-      # ''}";
       environmentFile = "${pkgs.writeText "envfile" ''
         GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
         GODADDY_API_SECRET=${
@@ -525,10 +517,6 @@
     };
   };
 
-  # services.trilium-server = {
-  #   enable = true;
-  # };
-
   systemd.mounts = [{
     what = "/mnt/passport/gphotos.img";
     where = "/mnt/gphotos";
@@ -578,155 +566,24 @@
     };
   };
 
-  # systemd.services.mount-gphotos-disk= {
-  #   wantedBy = [ "resilio.service" ];
-  #   requiredBy = [ "resilio.service" ];
-  #   path = [ pkgs.qemu-utils pkgs.kmod pkgs.util-linux ];
-  #   serviceConfig.Type = "oneshot";
-  #   serviceConfig.RemainAfterExit = true;
-  #   script = ''
-  #     # qemu-img commit /passport/gphotos.img.qcow2
-  #     # rm -rf /passport/gphotos.img.qcow2
-  #     mount -o loop /passport/gphotos.img /gphotos
-  #     # Mount steps for the qcow2 image
-  #     # modprobe nbd max_part=8
-  #     # qemu-nbd -c /dev/nbd0 /passport/gphotos.img.qcow2
-  #     # mount /dev/nbd0 /home/hdggxin/gphotos
-  #     # Fix Corruption
-  #     # sudo fsck.vfat -a /passport/gphotos.img
-  #   '';
-  #   preStop = ''
-  #     umount /gphotos
-  #     # Unmout steps for the qcow2
-  #     # umount /dev/nbd0 /home/hdggxin/gphotos
-  #     # qemu-nbd -d /dev/nbd0
-  #     # rmmod nbd
-  #   '';
-  # };
-
-  # systemd.network = {
-  #   enable = true;
-  #   networks = {
-  #     "10-wired" = {
-  #       matchConfig.Name = "enp3s0";
-  #       networkConfig = {
-  #         Address = "192.168.1.240/24";
-  #         Gateway = "192.168.1.1";
-  #       };
-  #     };
-  #     # "20-wireless" = {
-  #     #   matchConfig.Name = "wlp0s29f7u7";
-  #     #   networkConfig = {
-  #     #     Address = "192.168.1.240/24";
-  #     #     Gateway = "192.168.1.1";
-  #     #   };
-  #     # };
-  #   };
-  # };
-
-  # # Dispatcher script to disable Wi-Fi when Ethernet is up
-  # environment.etc."NetworkManager/dispatcher.d/10-eth-wifi-switch".text = ''
-  #   #!/bin/bash
-  #   IFACE="$1"
-  #   STATUS="$2"
-
-  #   if [ "$IFACE" = "enp3s0" ]; then
-  #     if [ "$STATUS" = "up" ]; then
-  #       nmcli device disconnect wlp0s29f7u7
-  #     elif [ "$STATUS" = "down" ]; then
-  #       nmcli device connect wlp0s29f7u7
-  #     fi
-  #   fi
-  # '';
-
-  # environment.etc."wpa_supplicant/wlp0s29f7u7.conf".text = ''
-  #   ctrl_interface=/run/wpa_supplicant
-  #   network={
-  #     ssid="SDU_Family"
-  #     psk=e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7
-  #   }
-  # '';
-
-  # systemd.tmpfiles.rules = [
-  #   "f /etc/NetworkManager/dispatcher.d/10-eth-wifi-switch 0755 root root -"
-  # ];
-
-  # networking.useDHCP = false;
-  # networking.dhcpcd.extraConfig = ''
-  #  interface enp0s25
-  #   metric 100
-  # '';
-  # networking.useNetworkd = false;
-  # networking.wireless = {
-  #   enable = true;
-  #   scanOnLowSignal = true;
-  #   networks = {
-  #     "SDU_Family" = {         # SSID with spaces and/or special characters
-  #       pskRaw="e76ed59c8f97945aec6b8526cd71462162396947a740ff820c6840834e8d12d7";
-  #     };
-  #   };
-  # };
-  networking.nat = {
-    enable = true;
-    enableIPv6 = true;
-    externalInterface = "lo";
-    internalInterfaces = [ "wg0" ];
-  };
-
   networking.wg-quick = {
     interfaces = {
       wg0 = {
         # Determines the IP address and subnet of the server's end of the tunnel interface.
-        address = [ "10.100.0.1/24" ];
+        address = [ "10.100.0.8/24" ];
 
         # The port that WireGuard listens to. Must be accessible by the client.
         listenPort = 51820;
-
-        # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
-        # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
-        # TODO remove -I INPUT 1 when the server and the wireguard becomes different.
-        postUp = ''
-          ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -I INPUT 1 -i wg0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
-        '';
-
-        # This undoes the above command
-        preDown = ''
-          ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -D INPUT -i wg0 -j ACCEPT
-          ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
-        '';
-
         generatePrivateKeyFile = true;
         privateKeyFile = "/etc/wireguard/private.key";
-
         peers = [
           # List of allowed peers.
-          { # Pushpendra Lenovo Legion
-            publicKey = "bB41BBvAABXWPVl7tnQ4Vc6zit2gklDVLVEbkbadx2g=";
+          { # AWS server
+            publicKey = "x7/4pkeu2yY8sQZr0odv6A1BDSXw6eLMBhoN3AjFdG4=";
             # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-            allowedIPs = [ "10.100.0.2/32" ];
-          }
-          { # Upendra Windows
-            publicKey = "wZeJlxXNLSEKm9CXbTX0WutLHMEVsqzIrPcJtw/YaDY=";
-            allowedIPs = [ "10.100.0.3/32" ];
-          }
-          { # Samsung Tablet
-            publicKey = "kOjGcKa+vVlQBgHX61U0+E+rhwJy8c0US549+5sth3g=";
-            allowedIPs = [ "10.100.0.4/32" ];
-          }
-          { # Pushpendra Oneplus Smartphone
-            publicKey = "54fOXY9z9z83hBpdEUQT8CUki0WngRgumIavlKJPOT4=";
-            allowedIPs = [ "10.100.0.5/32" ];
-          }
-          { # Pushpendra Office Mac
-            publicKey = "x7lRZy7ifGmT9hwgotUrAa445ie3qj1Xdj20ReW4XVU=";
-            allowedIPs = [ "10.100.0.6/32" ];
-          }
-          { # Upendra Pixel
-            publicKey = "NOAdPnad0kGCMECcF8nRiT5q72Qp5FevIUjMnlb5SWA=";
-            allowedIPs = [ "10.100.0.7/32" ];
+            allowedIPs = [ "10.100.0.0/24" ];
+            endpoint = "hdggxin.in:51820";
+            persistentKeepalive = 25;
           }
         ];
       };
