@@ -527,12 +527,12 @@
 
   systemd.services.code = {
     description = "VSCode web server";
-    wantedBy = [
-      "multi-user.target"
-    ];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "wg-quick-wg0.service" ];
     serviceConfig = {
       PAMName = "login";
-      ExecStart = "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
+      ExecStart =
+        "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
       Restart = "always";
       User = "hdggxin";
     };
@@ -604,7 +604,7 @@
     8443
     5045
   ];
-  networking.firewall.interfaces.wg0.allowedTCPPorts = [8000];
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [ 8000 ];
   networking.firewall.allowedUDPPorts = [
     22
     80
