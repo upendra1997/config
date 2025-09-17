@@ -406,6 +406,8 @@
     enable = true;
     setSocketVariable = true;
   };
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   security.acme = {
     acceptTerms = true;
     certs."www.hdggxin.in" = {
@@ -534,6 +536,7 @@
       ExecStart =
         "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
       Restart = "always";
+      RestartSec = 1;
       User = "hdggxin";
     };
     path = [ pkgs.vscode ];
@@ -549,6 +552,7 @@
     serviceConfig = {
       ExecStart = "/home/hdggxin/resilio/start.sh";
       Restart = "always";
+      RestartSec = 1;
       User = "hdggxin"; # Optional, if it should run as a specific user
     };
     path = [ pkgs.resilio-sync ];
