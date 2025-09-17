@@ -260,7 +260,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPPS8auuy6hEKeLuMn1h1C320gta/sFrK4plP2It97NZ" # Samsung
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC8hvnQV7nSG5bfCZnt7s7LueIsxTt+bmg0PLYanFdL8 upendra@st-upendra2" # Mac M3
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhCrSYdjZLawaHt3e1qAVSouoiscYY1vUBONrlqEPY/ jsw@JSWCL-HYD-L0058" # Papa dell laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMejS7mFUl13woV1Va9BMagnCphk+mKml42Qvwa1kuYd upend@DESKTOP-F650LTD" # Lenovo G5080
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIcKOUSYrzGC33iKPM5K9eQpW+K/5IHsI67fV5jHGvJY hdggxin@DESKTOP-FRSC2LM" # Lenovo G5080
     ];
   };
 
@@ -306,6 +306,7 @@
     wireguard-tools
     wireguard-ui
     firefox
+    vscode
     #SWAY
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
@@ -536,6 +537,20 @@
     partOf = [ "resilio.service" ];
   }];
 
+  systemd.services.code = {
+    description = "VSCode web server";
+    wantedBy = [
+      "multi-user.target"
+    ];
+    serviceConfig = {
+      PAMName = "login";
+      ExecStart = "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
+      Restart = "always";
+      User = "hdggxin";
+    };
+    path = [ pkgs.vscode ];
+  };
+
   systemd.services.resilio = {
     description = "Resilio Sync";
     wantedBy = [
@@ -732,6 +747,7 @@
     8443
     5045
   ];
+  networking.firewall.interfaces.wg0.allowedTCPPorts = [8000];
   networking.firewall.allowedUDPPorts = [
     22
     80
@@ -760,7 +776,7 @@
       ];
     };
   # Or disable the firewall altogether.
-  networking.firewall.enable = true;
+  networking.firewall.enable = false;
   # networking.firewall.allowPing= true;
   # networking.firewall.logRefusedPackets = true;
   # networking.firewall.logRefusedUnicastsOnly = true;
