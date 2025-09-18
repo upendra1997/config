@@ -406,7 +406,7 @@
     enable = true;
     setSocketVariable = true;
   };
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
 
   security.acme = {
     acceptTerms = true;
@@ -527,7 +527,7 @@
     partOf = [ "resilio.service" ];
   }];
 
-  systemd.services.code = {
+  systemd.services.vscode = {
     description = "VSCode web server";
     wantedBy = [ "multi-user.target" ];
     after = [ "wg-quick-wg0.service" ];
@@ -537,6 +537,21 @@
         "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
       Restart = "always";
       RestartSec = 1;
+      User = "hdggxin";
+    };
+    path = [ pkgs.vscode ];
+  };
+
+  systemd.services.vscode-tunnel = {
+    description = "Visual Studio Code Tunnel";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      PAMName = "login";
+      ExecStart =
+        "${pkgs.vscode}/bin/code tunnel --verbose --log trace --cli-data-dir /home/hdggxin/.vscode/cli";
+      Restart = "always";
+      RestartSec = 5;
       User = "hdggxin";
     };
     path = [ pkgs.vscode ];
