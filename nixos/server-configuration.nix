@@ -9,26 +9,26 @@
     wireguard-tools
   ];
 
-  security.acme = {
-    acceptTerms = true;
-    certs."www.hdggxin.in" = {
-      email = "upendra.upadhyay.97+acme@gmail.com";
-      group = "users";
-      environmentFile = "${pkgs.writeText "envfile" ''
-        GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
-        GODADDY_API_SECRET=${
-          builtins.readFile /etc/nixos/godaddy_hdggxin_secret
-        }
-        GODADDY_PROPAGATION_TIMEOUT=1800
-        GODADDY_POLLING_INTERVAL=2
-      ''}";
-      webroot = "/var/lib/acme/acme-challenge";
-      postRun = ''
-        openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
-                chown acme:users cert.pfx'';
-      extraDomainNames = [ "hdggxin.in" ];
-    };
-  };
+  # security.acme = {
+  #   acceptTerms = true;
+  #   certs."www.hdggxin.in" = {
+  #     email = "upendra.upadhyay.97+acme@gmail.com";
+  #     group = "users";
+  #     environmentFile = "${pkgs.writeText "envfile" ''
+  #       GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
+  #       GODADDY_API_SECRET=${
+  #         builtins.readFile /etc/nixos/godaddy_hdggxin_secret
+  #       }
+  #       GODADDY_PROPAGATION_TIMEOUT=1800
+  #       GODADDY_POLLING_INTERVAL=2
+  #     ''}";
+  #     webroot = "/var/lib/acme/acme-challenge";
+  #     postRun = ''
+  #       openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
+  #               chown acme:users cert.pfx'';
+  #     extraDomainNames = [ "hdggxin.in" ];
+  #   };
+  # };
 
   services.nginx = {
     enable = true;

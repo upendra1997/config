@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ # Include the results of the hardware scan.
@@ -408,26 +408,26 @@
   };
   security.pam.services.login.enableGnomeKeyring = true;
 
-  security.acme = {
-    acceptTerms = true;
-    certs."www.hdggxin.in" = {
-      email = "upendra.upadhyay.97+acme@gmail.com";
-      group = "users";
-      environmentFile = "${pkgs.writeText "envfile" ''
-        GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
-        GODADDY_API_SECRET=${
-          builtins.readFile /etc/nixos/godaddy_hdggxin_secret
-        }
-        GODADDY_PROPAGATION_TIMEOUT=1800
-        GODADDY_POLLING_INTERVAL=2
-      ''}";
-      webroot = "/var/lib/acme/acme-challenge";
-      postRun = ''
-        openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
-                chown acme:users cert.pfx'';
-      extraDomainNames = [ "hdggxin.in" ];
-    };
-  };
+  # security.acme = {
+  #   acceptTerms = true;
+  #   certs."www.hdggxin.in" = {
+  #     email = "upendra.upadhyay.97+acme@gmail.com";
+  #     group = "users";
+  #     environmentFile = "${pkgs.writeText "envfile" ''
+  #       GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
+  #       GODADDY_API_SECRET=${
+  #         builtins.readFile /etc/nixos/godaddy_hdggxin_secret
+  #       }
+  #       GODADDY_PROPAGATION_TIMEOUT=1800
+  #       GODADDY_POLLING_INTERVAL=2
+  #     ''}";
+  #     webroot = "/var/lib/acme/acme-challenge";
+  #     postRun = ''
+  #       openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
+  #               chown acme:users cert.pfx'';
+  #     extraDomainNames = [ "hdggxin.in" ];
+  #   };
+  # };
 
   services.jellyfin = {
     enable = true;
@@ -436,20 +436,28 @@
   };
 
   services.transmission = {
-    enable = false;
+    enable = true;
     user = "hdggxin";
     group = "users";
+    settings = {
+      download-dir = "/mnt/passport/Torrents/transmission/Downloads/";
+    };
   };
 
   services.nginx = {
     enable = true;
     group = "users";
+    logError = "stderr debug";
     virtualHosts."www.hdggxin.in" = {
-      forceSSL = true;
-      useACMEHost = "www.hdggxin.in";
+      # forceSSL = true;
+      # useACMEHost = "www.hdggxin.in";
       root = "/var/www/hdggxin.in";
-      serverAliases = [ "hdggxin.in" ];
+      # serverAliases = [ "hdggxin.in" ];
       locations = {
+        # "/.well-known/acme-challenge" = {
+        #   root = "/var/lib/acme"; 
+        # };
+
         "= /jellyfin" = {
           extraConfig = ''
             return 302 https://$host/jellyfin/;
