@@ -74,14 +74,15 @@ vim.keymap.set('n', '<leader>gy', builtin.lsp_type_definitions, {})
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- setting up lspconfig
-local lspconfig = require('lspconfig')
+local lspconfig = vim.lsp.config
 local servers = { 'pyright', 'ts_ls', 'clangd', 'nixd', 'rust_analyzer', 'gopls', 'clojure_lsp', 'lua_ls', 'jdtls' }
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  lspconfig(lsp, {
     -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
-  }
+  })
+  vim.lsp.enable(lsp)
 end
 
 -- Global mappings.
