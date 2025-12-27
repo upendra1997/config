@@ -7,28 +7,29 @@
     iptables
     tmux
     wireguard-tools
+    htop
   ];
 
-  # security.acme = {
-  #   acceptTerms = true;
-  #   certs."www.hdggxin.in" = {
-  #     email = "upendra.upadhyay.97+acme@gmail.com";
-  #     group = "users";
-  #     environmentFile = "${pkgs.writeText "envfile" ''
-  #       GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
-  #       GODADDY_API_SECRET=${
-  #         builtins.readFile /etc/nixos/godaddy_hdggxin_secret
-  #       }
-  #       GODADDY_PROPAGATION_TIMEOUT=1800
-  #       GODADDY_POLLING_INTERVAL=2
-  #     ''}";
-  #     webroot = "/var/lib/acme/acme-challenge";
-  #     postRun = ''
-  #       openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
-  #               chown acme:users cert.pfx'';
-  #     extraDomainNames = [ "hdggxin.in" ];
-  #   };
-  # };
+  security.acme = {
+    acceptTerms = true;
+    certs."www.hdggxin.in" = {
+      email = "upendra.upadhyay.97+acme@gmail.com";
+      group = "users";
+      environmentFile = "${pkgs.writeText "envfile" ''
+        GODADDY_API_KEY=${builtins.readFile /etc/nixos/godaddy_hdggxin_key}
+        GODADDY_API_SECRET=${
+          builtins.readFile /etc/nixos/godaddy_hdggxin_secret
+        }
+        GODADDY_PROPAGATION_TIMEOUT=1800
+        GODADDY_POLLING_INTERVAL=2
+      ''}";
+      webroot = "/var/lib/acme/acme-challenge";
+      postRun = ''
+        openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
+                chown acme:users cert.pfx'';
+      extraDomainNames = [ "hdggxin.in" ];
+    };
+  };
 
   services.nginx = {
     enable = true;
@@ -45,7 +46,7 @@
           '';
         };
         "/chat/websocket" = {
-          proxyPass = "http://127.0.0.1:5000/websocket";
+          proxyPass = "http://10.100.0.8:5000/websocket";
           proxyWebsockets = true; # needed if you need to use WebSocket
           extraConfig = ''
             # Proxy Jellyfin Websockets traffic
@@ -60,7 +61,7 @@
           '';
         };
         "/chat" = {
-          proxyPass = "http://127.0.0.1:5000/";
+          proxyPass = "http://10.100.0.8:5000/";
           extraConfig = ''
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -124,6 +125,22 @@
         # The port that WireGuard listens to. Must be accessible by the client.
         listenPort = 51820;
 
+        # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+        # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+        # TODO remove -I INPUT 1 when the server and the wireguard becomes different.
+        # postUp = ''
+        #   ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+        #   ${pkgs.iptables}/bin/iptables -I INPUT 1 -i wg0 -j ACCEPT
+        #   ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
+        # '';
+
+        # This undoes the above command
+        # preDown = ''
+        #   ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+        #   ${pkgs.iptables}/bin/iptables -D INPUT -i wg0 -j ACCEPT
+        #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o lo -j MASQUERADE
+        # '';
+
         generatePrivateKeyFile = true;
         privateKeyFile = "/etc/wireguard/private.key";
 
@@ -139,7 +156,7 @@
             allowedIPs = [ "10.100.0.3/32" ];
           }
           { # Samsung Tablet
-            publicKey = "kOjGcKa+vVlQBgHX61U0+E+rhwJy8c0US549+5sth3g=";
+            publicKey = "20d98LH0B5kV6qWpWk7pAvUJd9GaNq/MyMcZACbkmQA=";
             allowedIPs = [ "10.100.0.4/32" ];
           }
           { # Pushpendra Oneplus Smartphone

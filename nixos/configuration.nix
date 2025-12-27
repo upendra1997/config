@@ -241,6 +241,8 @@
         nixfmt
         gopls
         libclang
+        clojure
+        babashka
         clojure-lsp
       ] ++ [ # fish packages
         fishPlugins.z
