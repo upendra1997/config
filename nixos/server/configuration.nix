@@ -10,6 +10,10 @@
     htop
   ];
 
+  users.users.root = {
+    openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
+  };
+
   security.acme = {
     acceptTerms = true;
     certs."www.hdggxin.in" = {
@@ -175,12 +179,16 @@
             publicKey = "lcABkE9M5ACGaB2WFCW4dqYnGXaRrPmgghzD8V2GLS4=";
             allowedIPs = [ "10.100.0.8/32" ];
           }
+          { # Upendra Office Mac
+            publicKey = "nujR85SRCMGTXU+Wpp9TYKNZHDqEHqMWLb+sz64ecTc=";
+            allowedIPs = [ "10.100.0.9/32" ];
+          }
         ];
       };
     };
   };
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [80 443 4200];
+  networking.firewall.allowedTCPPorts = [80 22 443 4200];
   networking.firewall.allowedUDPPorts = [51820];
 }
