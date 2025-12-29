@@ -189,6 +189,6 @@
   };
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [80 22 443 4200];
+  networking.firewall.allowedTCPPorts = [80 443 4200];
   networking.firewall.allowedUDPPorts = [51820];
 }
