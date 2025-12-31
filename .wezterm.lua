@@ -37,7 +37,7 @@ end
 -- This is where you actually apply your config choices
 
 config.font = wezterm.font 'Iosevka Nerd Font'
-config.window_background_opacity = 0.80
+config.window_background_opacity = 0.85
 config.window_decorations = "RESIZE"
 -- config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
@@ -50,8 +50,8 @@ config.font_size = 20.0
 -- local random_theme = theme[math.random(#theme)]
 -- wezterm.log_error(random_theme)
 -- config.color_scheme = "GruvboxDark" -- random_theme
-config.color_scheme = 'Everforest Dark Hard (Gogh)'
-config.front_end = "WebGpu"
+-- config.color_scheme = 'Everforest Dark Hard (Gogh)'
+-- config.front_end = "WebGpu"
 
 
 -- and finally, return the configuration to wezterm
