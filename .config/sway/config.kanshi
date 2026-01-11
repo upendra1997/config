@@ -1,0 +1,22 @@
+output "Dell Inc. DELL U2719D 87ZWMS2" {
+	mode 2560x1440@59.951
+	alias $DELL
+}
+
+output "BOE 0x0A2D Unknown" enable {
+	mode 2560x1440@165.003
+	alias $DEFAULT
+}
+
+profile DEFAULT {
+	output $DELL enable scale 1.0
+	output $DEFAULT enable scale 1.0
+}
+
+profile LaptonOnly {
+	output $DEFAULT enable scale 1.25
+}
+
+profile DesktopOnly {
+	output $DELL enable scale 1.0
+}
