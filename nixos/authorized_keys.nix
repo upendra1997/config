@@ -9,4 +9,5 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG7Ke1iVDjdLVyPaQ23a1ZX9J1KDlMoGuD/CmoHMXU1U upendra.upadhyay@wise.com" # Wise Mac
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKjTzkvK8X3LTzY24jTUdz4R5YwaxhXX1IwK9jtnKxt9" # AWS Pem Public Key
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEMLdNhC4Vo7DR4DUudLjRwKEqVM0co1SHYoLEGPkawr" # Notion Mac
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC6pFQYtplP7epgrajlXfnwNJeHlZuMBmLU6UgJQ1mnQ pi@pi" # Raspberry pi
     ]
