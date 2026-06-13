@@ -16,7 +16,7 @@
 
   security.acme = {
     acceptTerms = true;
-    certs."www.hdggxin.in" = {
+    certs."www.hdggx.in" = {
       email = "upendra.upadhyay.97+acme@gmail.com";
       group = "users";
       environmentFile = "${pkgs.writeText "envfile" ''
@@ -31,18 +31,18 @@
       postRun = ''
         openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
                 chown acme:users cert.pfx'';
-      extraDomainNames = [ "hdggxin.in" ];
+      extraDomainNames = [ "hdggx.in" ];
     };
   };
 
   services.nginx = {
     enable = true;
     group = "users";
-    virtualHosts."www.hdggxin.in" = {
+    virtualHosts."www.hdggx.in" = {
       forceSSL = true;
-      useACMEHost = "www.hdggxin.in";
-      root = "/var/www/hdggxin.in";
-      serverAliases = [ "hdggxin.in" ];
+      useACMEHost = "www.hdggx.in";
+      root = "/var/www/hdggx.in";
+      serverAliases = [ "hdggx.in" ];
       locations = {
         "= /jellyfin" = {
           extraConfig = ''

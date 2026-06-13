@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
   ];
 
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 30;
@@ -59,7 +60,7 @@
 
   networking = {
     hostName = "nixos";
-    domain = "hdggxin.in";
+    domain = "hdggx.in";
   };
   networking.networkmanager = {
     enable = true; # Easiest to use and most distros use this by default.
@@ -414,7 +415,7 @@
 
   # security.acme = {
   #   acceptTerms = true;
-  #   certs."www.hdggxin.in" = {
+  #   certs."www.hdggx.in" = {
   #     email = "upendra.upadhyay.97+acme@gmail.com";
   #     group = "users";
   #     environmentFile = "${pkgs.writeText "envfile" ''
@@ -429,7 +430,7 @@
   #     postRun = ''
   #       openssl pkcs12 -export -out cert.pfx -inkey key.pem -in cert.pem -password pass:
   #               chown acme:users cert.pfx'';
-  #     extraDomainNames = [ "hdggxin.in" ];
+  #     extraDomainNames = [ "hdggx.in" ];
   #   };
   # };
 
@@ -452,11 +453,11 @@
     enable = true;
     group = "users";
     logError = "stderr debug";
-    virtualHosts."www.hdggxin.in" = {
+    virtualHosts."www.hdggx.in" = {
       # forceSSL = true;
-      # useACMEHost = "www.hdggxin.in";
-      root = "/var/www/hdggxin.in";
-      # serverAliases = [ "hdggxin.in" ];
+      # useACMEHost = "www.hdggx.in";
+      root = "/var/www/hdggx.in";
+      # serverAliases = [ "hdggx.in" ];
       locations = {
         # "/.well-known/acme-challenge" = {
         #   root = "/var/lib/acme"; 
@@ -613,7 +614,7 @@
             publicKey = "x7/4pkeu2yY8sQZr0odv6A1BDSXw6eLMBhoN3AjFdG4=";
             # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
             allowedIPs = [ "10.100.0.0/24" ];
-            endpoint = "hdggxin.in:51820";
+            endpoint = "hdggx.in:51820";
             persistentKeepalive = 25;
           }
         ];
