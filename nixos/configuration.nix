@@ -301,6 +301,7 @@
     fd
     ripgrep
     htop
+    cloudflared
     gnat
     acpi
     fzf
@@ -356,6 +357,22 @@
     '';
   };
 
+  services.tailscale.enable = true;
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      "77487753-bf3f-4fb4-ac94-0a7c8a65a16e" = {
+        credentialsFile = "/home/hdggxin/.cloudflared/77487753-bf3f-4fb4-ac94-0a7c8a65a16e.json";
+        default = "http_status:444";
+        ingress = {
+          # Point your domain to your local Nginx HTTP port
+          "www.hdggx.in" = "http://localhost:80";
+          "hdggx.in" = "http://localhost:80";
+        };
+      };
+    };
+  };
+
   services.udev.extraRules = ''
     # CMSIS-DAP for microbit
     ACTION!="add|change", GOTO="microbit_rules_end"
@@ -366,6 +383,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
+  nix.settings.trusted-users = ["hdggxin"];
 
   nixpkgs.config.allowUnfree = true;
 
