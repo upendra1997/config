@@ -28,8 +28,41 @@
             })
             ({ pkgs, ... }: {
               boot.loader.raspberry-pi.bootloader = "kernel";
+	      nix.gc = {
+	        automatic = true;
+	        randomizedDelaySec = "14m";
+	        options = "--delete-older-than 30d";
+	      };
+services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+    };
+    openFirewall = true;
+  };
+programs.direnv = {
+    enable = true;
+    silent = false;
+    loadInNixShell = true;
+    direnvrcExtra = "";
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
+    };
+  };
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.optimise.automatic = true;
+  nix.settings.auto-optimise-store = true;
+  nix.settings.trusted-users = ["hdggxin"];
+
+  nixpkgs.config.allowUnfree = true;
+
               environment.systemPackages = with pkgs; [
 git
+tree
 vim
 htop
 tmux
@@ -44,9 +77,12 @@ parted
                 extraGroups = [
                   "wheel"
                 ];
+	      openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
               };
 
-              services.openssh.enable = true;
+              services.openssh = {
+enable = true;
+};
             })
 
             ({ ... }: {
