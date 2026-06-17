@@ -1,7 +1,7 @@
 {
   description = "Example Raspberry Pi 5 configuration flake";
     inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
       nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
     };
 
