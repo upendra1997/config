@@ -29,11 +29,24 @@
             ({ pkgs, ... }: {
               boot.loader.raspberry-pi.bootloader = "kernel";
 system.stateVersion = "26.05";
+time.timeZone = "Asia/Kolkata";
 	      nix.gc = {
 	        automatic = true;
 	        randomizedDelaySec = "14m";
 	        options = "--delete-older-than 30d";
 	      };
+
+  # Configure keymap in X11
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "eurosign:e,caps:escape";
+  services.xserver.xkb.variant = "dvorak";
+console = {
+   useXkbConfig = true;
+   earlySetup = true;
+   font = "${pkgs.terminus_font}/share/consolefonts/ter-116n.psf.gz";
+   packages = with pkgs; [ terminus_font ];
+ };
+
 services.avahi = {
     enable = true;
     nssmdns4 = true;
