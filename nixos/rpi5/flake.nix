@@ -27,6 +27,7 @@
               ];
             })
             ({ pkgs, ... }: {
+              boot.loader.raspberry-pi.bootloader = "kernel";
               environment.systemPackages = with pkgs; [
 git
 vim
