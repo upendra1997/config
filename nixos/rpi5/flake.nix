@@ -28,6 +28,7 @@
             })
             ({ pkgs, ... }: {
               boot.loader.raspberry-pi.bootloader = "kernel";
+system.stateVersion = "26.05";
 	      nix.gc = {
 	        automatic = true;
 	        randomizedDelaySec = "14m";
