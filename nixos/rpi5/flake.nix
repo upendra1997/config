@@ -147,6 +147,7 @@ parted
 			mpv
 			swayimg
 			wezterm
+      fzf
 		] ++
 [ # fish packages
         fishPlugins.z
