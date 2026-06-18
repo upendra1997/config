@@ -122,6 +122,10 @@ parted
                 extraGroups = [
                   "wheel"
                 ];
+                packages = with pkgs; [
+			luakit
+			# firefox-esr
+		];
 	      openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
               };
 
