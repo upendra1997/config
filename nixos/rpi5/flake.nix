@@ -123,8 +123,10 @@ parted
                   "wheel"
                 ];
                 packages = with pkgs; [
-			luakit
-			# firefox-esr
+			firefox-esr # luakit
+			grim
+			mpv
+			swayimg
 		];
 	      openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
               };

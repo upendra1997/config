@@ -47,6 +47,7 @@ output * resolution 2560x1440 position 2560,0
 input * {
   xkb_layout "us"
   xkb_variant "dvorak"
+  xkb_options ctrl:nocaps
 }
 
 ### Input configuration
