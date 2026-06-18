@@ -26,8 +26,21 @@
                 raspberry-pi-5.bluetooth
               ];
             })
-            ({ pkgs, ... }: {
+            ({ pkgs, lib, config, ... }:
+            let
+              normalUsers = lib.filter (u: u.isNormalUser) (lib.attrValues config.users.users);
+            in {
               boot.loader.raspberry-pi.bootloader = "kernel";
+
+  # `d` ensures the dir exists; `L+` force-recreates a symlink, where `argument` is
+  systemd.tmpfiles.settings."10-home-links" = lib.mkMerge (map (u: {
+    "${u.home}/.config".d = {
+      mode = "0755";
+      user = u.name;
+      group = u.group;
+    };
+    "${u.home}/.config/sway"."L+".argument = "${u.home}/config/.config/sway";
+  }) normalUsers);
 system.stateVersion = "26.05";
 time.timeZone = "Asia/Kolkata";
 	      nix.gc = {
