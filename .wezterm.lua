@@ -36,7 +36,7 @@ end
 
 -- This is where you actually apply your config choices
 
-config.font = wezterm.font 'Iosevka Nerd Font'
+config.font = wezterm.font 'Iosevka'
 config.window_background_opacity = 0.85
 config.window_decorations = "RESIZE"
 -- config.hide_tab_bar_if_only_one_tab = true

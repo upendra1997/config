@@ -91,6 +91,17 @@ services.avahi = {
     wrapperFeatures.gtk = true;
   };
 
+  programs.fish = {
+    enable = true;
+    useBabelfish = true;
+    shellAliases = {
+      "vim" = "nvim";
+    };
+    vendor.completions.enable = true;
+    vendor.config.enable = true;
+    vendor.functions.enable = true;
+  };
+
 programs.direnv = {
     enable = true;
     silent = false;
@@ -108,6 +119,9 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.trusted-users = ["hdggxin"];
 
   nixpkgs.config.allowUnfree = true;
+  fonts.packages  = with pkgs; [
+iosevka
+];
 
               environment.systemPackages = with pkgs; [
 git
@@ -121,6 +135,7 @@ parted
               networking.hostName = "pi";
               networking.networkmanager.enable = true;
               users.users.hdggxin = {
+                shell = pkgs.fish;
                 initialPassword = "Up1997@hdggxin";
                 isNormalUser = true;
                 extraGroups = [
@@ -132,7 +147,20 @@ parted
 			mpv
 			swayimg
 			wezterm
-		];
+		] ++
+[ # fish packages
+        fishPlugins.z
+        fishPlugins.transient-fish
+        fishPlugins.sponge
+        fishPlugins.puffer
+        fishPlugins.plugin-git
+        fishPlugins.autopair
+        fishPlugins.humantime-fish
+        fishPlugins.fzf
+        fishPlugins.done
+      ];
+
+
 	      openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
               };
 
