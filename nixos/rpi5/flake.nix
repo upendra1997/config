@@ -41,7 +41,10 @@
     };
     "${u.home}/.config/sway"."L+".argument = "${u.home}/config/.config/sway";
     "${u.home}/.config/nvim"."L+".argument = "${u.home}/config/nvim";
+    "${u.home}/.wezterm.lua"."L+".argument = "${u.home}/config/.wezterm.lua";
+    "${u.home}/.tmux.conf"."L+".argument = "${u.home}/config/.tmux.conf";
   }) normalUsers);
+
 system.stateVersion = "26.05";
 time.timeZone = "Asia/Kolkata";
 	      nix.gc = {
