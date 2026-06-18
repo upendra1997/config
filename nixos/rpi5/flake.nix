@@ -57,6 +57,23 @@ services.avahi = {
     };
     openFirewall = true;
   };
+
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "hdggxin";
+      };
+    };
+  };
+
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
+
 programs.direnv = {
     enable = true;
     silent = false;
@@ -67,6 +84,7 @@ programs.direnv = {
       package = pkgs.nix-direnv;
     };
   };
+
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
