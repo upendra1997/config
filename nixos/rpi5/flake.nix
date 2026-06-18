@@ -32,7 +32,7 @@
             in {
               boot.loader.raspberry-pi.bootloader = "kernel";
 
-  # `d` ensures the dir exists; `L+` force-recreates a symlink, where `argument` is
+  # `d` ensures the dir exists; `L+` force-recreates a symlink, where `argument` is source
   systemd.tmpfiles.settings."10-home-links" = lib.mkMerge (map (u: {
     "${u.home}/.config".d = {
       mode = "0755";
@@ -40,6 +40,7 @@
       group = u.group;
     };
     "${u.home}/.config/sway"."L+".argument = "${u.home}/config/.config/sway";
+    "${u.home}/.config/nvim"."L+".argument = "${u.home}/config/nvim";
   }) normalUsers);
 system.stateVersion = "26.05";
 time.timeZone = "Asia/Kolkata";
@@ -108,7 +109,7 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
               environment.systemPackages = with pkgs; [
 git
 tree
-vim
+neovim
 htop
 tmux
 networkmanager
@@ -127,6 +128,7 @@ parted
 			grim
 			mpv
 			swayimg
+			wezterm
 		];
 	      openssh.authorizedKeys.keys = (import ../authorized_keys.nix);
               };
