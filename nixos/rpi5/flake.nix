@@ -142,6 +142,7 @@ tmux
 networkmanager
 parted
 bluetuith
+pulsemixer
 ];
               networking.hostName = "pi";
               networking.networkmanager.enable = true;
