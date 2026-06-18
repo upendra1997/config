@@ -52,6 +52,16 @@ time.timeZone = "Asia/Kolkata";
 	        randomizedDelaySec = "14m";
 	        options = "--delete-older-than 30d";
 	      };
+		
+  # Enable sound.
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
@@ -131,6 +141,7 @@ htop
 tmux
 networkmanager
 parted
+bluetuith
 ];
               networking.hostName = "pi";
               networking.networkmanager.enable = true;
