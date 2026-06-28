@@ -163,6 +163,7 @@ pulsemixer
       fzf
       emacs
       clojure
+      leiningen
       rustup
       ghc
 		] ++
