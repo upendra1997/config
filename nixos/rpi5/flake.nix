@@ -43,6 +43,7 @@
     "${u.home}/.config/nvim"."L+".argument = "${u.home}/config/nvim";
     "${u.home}/.wezterm.lua"."L+".argument = "${u.home}/config/.wezterm.lua";
     "${u.home}/.tmux.conf"."L+".argument = "${u.home}/config/.tmux.conf";
+    "${u.home}/.emacs.d"."L+".argument = "${u.home}/config/.emacs.d";
   }) normalUsers);
 
 system.stateVersion = "26.05";
@@ -117,7 +118,6 @@ programs.direnv = {
     enable = true;
     silent = false;
     loadInNixShell = true;
-    direnvrcExtra = "";
     nix-direnv = {
       enable = true;
       package = pkgs.nix-direnv;
