@@ -107,6 +107,7 @@ services.avahi = {
     shellAliases = {
       "vim" = "nvim";
     };
+    shellInit = "set EDITOR nvim\n set VISUAL nvim";
     vendor.completions.enable = true;
     vendor.config.enable = true;
     vendor.functions.enable = true;
@@ -160,6 +161,10 @@ pulsemixer
 			swayimg
 			wezterm
       fzf
+      emacs
+      clojure
+      rustup
+      ghc
 		] ++
 [ # fish packages
         fishPlugins.z

@@ -38,11 +38,12 @@ end
 
 config.font = wezterm.font 'Iosevka'
 config.window_background_opacity = 0.85
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
+config.show_close_tab_button_in_tabs = false
 -- config.hide_tab_bar_if_only_one_tab = true
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
-config.font_size = 20.0
+config.font_size = 18.0
 
 -- local schemes = schemes()
 

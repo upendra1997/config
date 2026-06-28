@@ -234,3 +234,6 @@ bar {
 }
 
 include /etc/sway/config.d/*
+
+# # Force Sway to remove the titlebar and default borders for WezTerm
+# for_window [app_id="org.wezfurlong.wezterm"] border pixel 0
