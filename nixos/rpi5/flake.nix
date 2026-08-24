@@ -2,6 +2,7 @@
   description = "Example Raspberry Pi 5 configuration flake";
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+      vscode-server.url = "github:nix-community/nixos-vscode-server";
       nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
     };
 
@@ -14,12 +15,13 @@
     ];
   };
 
-  outputs = { self, nixpkgs, nixos-raspberrypi }@inputs:
+  outputs = { self, nixpkgs, vscode-server, nixos-raspberrypi }@inputs:
     {
       nixosConfigurations = {
         pi = nixos-raspberrypi.lib.nixosSystem {
           specialArgs = inputs;
           modules = [
+            vscode-server.nixosModules.default
             ({...}: {
               imports = with nixos-raspberrypi.nixosModules; [
                 raspberry-pi-5.base
@@ -97,6 +99,7 @@ services.avahi = {
     };
   };
 
+  services.vscode-server.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
