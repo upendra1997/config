@@ -147,6 +147,7 @@ pulsemixer
 ];
               networking.hostName = "pi";
               networking.networkmanager.enable = true;
+              networking.firewall.enable = false;
               users.users.hdggxin = {
                 shell = pkgs.fish;
                 initialPassword = "Up1997@hdggxin";
@@ -162,8 +163,22 @@ pulsemixer
 			wezterm
       fzf
       emacs
+      pyright
+      clang
+      gdb
+      go
+      nodejs
+      tree-sitter
+      uv
+      rustup
+      nixd
+      nixfmt
+      gopls
+      libclang
       clojure
       leiningen
+      babashka
+      clojure-lsp
       rustup
       ghc
 		] ++
