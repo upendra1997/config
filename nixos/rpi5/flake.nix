@@ -100,6 +100,7 @@ services.avahi = {
   };
 
   services.vscode-server.enable = true;
+  programs.nix-ld.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
