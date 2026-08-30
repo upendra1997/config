@@ -241,6 +241,7 @@
                         # Point your domain to your local Nginx HTTP port
                         "www.hdggx.in" = "http://localhost:80";
                         "hdggx.in" = "http://localhost:80";
+                        "ssh.hdggx.in" = "ssh://localhost:22";
                       };
                     };
                   };
