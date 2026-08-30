@@ -2,13 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -26,28 +31,40 @@
     mountPoint = "/mnt/passport";
     device = "/dev/disk/by-uuid/406C6CEA6C6CDC62";
     fsType = "ntfs-3g, nofail";
-    options = [ "rw" "uid=1000" ];
+    options = [
+      "rw"
+      "uid=1000"
+    ];
     neededForBoot = false;
   };
   fileSystems."/mnt/c" = {
     mountPoint = "/mnt/c";
     device = "/dev/disk/by-uuid/28C47C0FC47BDE0E";
     fsType = "ntfs-3g, nofail";
-    options = [ "rw" "uid=1000" ];
+    options = [
+      "rw"
+      "uid=1000"
+    ];
     neededForBoot = false;
   };
   fileSystems."/mnt/d" = {
     mountPoint = "/mnt/d";
     device = "/dev/disk/by-uuid/7268F0B768F07AE5";
     fsType = "ntfs-3g, nofail";
-    options = [ "rw" "uid=1000" ];
+    options = [
+      "rw"
+      "uid=1000"
+    ];
     neededForBoot = false;
   };
   fileSystems."/mnt/e" = {
     mountPoint = "/mnt/e";
     device = "/dev/disk/by-uuid/7E3C54C03C5474DD";
     fsType = "ntfs-3g, nofail";
-    options = [ "rw" "uid=1000" ];
+    options = [
+      "rw"
+      "uid=1000"
+    ];
     neededForBoot = false;
   };
   # fileSystems."/mnt/gphotos" = {
@@ -212,7 +229,8 @@
       "transmission"
       "video"
     ];
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
         tiny
         stig
@@ -235,7 +253,9 @@
         libunwind
         usbutils
         acl
-      ] ++ [ # programming language and LSPs
+      ]
+      ++ [
+        # programming language and LSPs
         bear
         lua-language-server
         pyright
@@ -255,7 +275,9 @@
         clojure
         babashka
         clojure-lsp
-      ] ++ [ # fish packages
+      ]
+      ++ [
+        # fish packages
         fishPlugins.z
         fishPlugins.transient-fish
         fishPlugins.sponge
@@ -271,7 +293,10 @@
 
   users.users.slaineron = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "docker"
+    ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [ ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDGfqTEN89CavkHkEsEIrst/w7QrfwiRzaCKwTKfWX5y28JCsG2JITiiKn/Rt+VDwvimEJivpZmaOQtU0YxeylCPcP4Edf8+liFBqSnR6F1ty4L4XKqbG75taiWxAA1b1o3VqLymxWh/o4xNRZVPD3eqCnN9u/ppV+XTMr75/7DL2bU5EL1z6WoBMHQPFw9b0r+cU7IbzfAB8vIDaU1j3rcl1C2Wcj2XfkjV0HOiXJsPzkwerDz0HEfGRTuRx6OdQ3mpdf6KKjyVLlLZ1Sry0Elek72BIBNdciLqx6Ep/wpw6B+iRZvAkfRqKKyCy8qSWq5Vg2ouScLvuCzhozA1blpVOicJm1lAJEese/gzWNIHPrlqU0DTfyx88afg3nPg3H8oJ7LQEP/ecW2l2MSPjaKTdwVOlJdk1JbD7pmYewKySxikszNWMD7N1etSipTcW0g/GZ3k5US1J84f8oGWPKSETDWtKHgkxn0hLRehS8LebILJo8Urvtr2ecYQKo3BEk= pendra@slaineron"
@@ -346,7 +371,10 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    listenAddresses = [ { addr = "localhost"; } { addr = "0.0.0.0"; } ];
+    listenAddresses = [
+      { addr = "localhost"; }
+      { addr = "0.0.0.0"; }
+    ];
     settings = {
       GatewayPorts = "yes";
       PasswordAuthentication = false;
@@ -380,10 +408,13 @@
     LABEL="microbit_rules_end"
   '';
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
-  nix.settings.trusted-users = ["hdggxin"];
+  nix.settings.trusted-users = [ "hdggxin" ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -478,7 +509,7 @@
       # serverAliases = [ "hdggx.in" ];
       locations = {
         # "/.well-known/acme-challenge" = {
-        #   root = "/var/lib/acme"; 
+        #   root = "/var/lib/acme";
         # };
 
         "= /jellyfin" = {
@@ -550,13 +581,15 @@
     };
   };
 
-  systemd.mounts = [{
-    what = "/mnt/passport/gphotos.img";
-    where = "/mnt/gphotos";
-    type = "auto"; # or use actual fs type like ext4
-    options = "loop,rw,user,uid=1000";
-    partOf = [ "resilio.service" ];
-  }];
+  systemd.mounts = [
+    {
+      what = "/mnt/passport/gphotos.img";
+      where = "/mnt/gphotos";
+      type = "auto"; # or use actual fs type like ext4
+      options = "loop,rw,user,uid=1000";
+      partOf = [ "resilio.service" ];
+    }
+  ];
 
   systemd.services.vscode = {
     description = "VSCode web server";
@@ -564,8 +597,7 @@
     after = [ "wg-quick-wg0.service" ];
     serviceConfig = {
       PAMName = "login";
-      ExecStart =
-        "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
+      ExecStart = "${pkgs.vscode}/bin/code serve-web --without-connection-token --host 10.100.0.8";
       Restart = "always";
       RestartSec = 1;
       User = "hdggxin";
@@ -579,8 +611,7 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       PAMName = "login";
-      ExecStart =
-        "${pkgs.vscode}/bin/code tunnel --verbose --log trace --cli-data-dir /home/hdggxin/.vscode/cli";
+      ExecStart = "${pkgs.vscode}/bin/code tunnel --verbose --log trace --cli-data-dir /home/hdggxin/.vscode/cli";
       Restart = "always";
       RestartSec = 5;
       User = "hdggxin";
@@ -628,7 +659,8 @@
         privateKeyFile = "/etc/wireguard/private.key";
         peers = [
           # List of allowed peers.
-          { # AWS server
+          {
+            # AWS server
             publicKey = "x7/4pkeu2yY8sQZr0odv6A1BDSXw6eLMBhoN3AjFdG4=";
             # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
             allowedIPs = [ "10.100.0.0/24" ];
@@ -667,21 +699,21 @@
     27015
     5045
   ];
-  system.autoUpgrade =
-    { # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
-      enable = true;
-      allowReboot = false;
-      flake = "$(readlink -f /etc/nixos)";
-      # channel = "https://nixos.org/channels/nixos-25.05"; # Cannot be set together with flake
-      flags = [
-        "--impure" # Remove this in future
-        "--show-trace"
-        "--update-input"
-        "nixpkgs"
-        "--commit-lock-file"
-        "-L"
-      ];
-    };
+  system.autoUpgrade = {
+    # https://discourse.nixos.org/t/flake-auto-upgrade-fails-because-git-repo-not-owned-by-current-user/61893/3
+    enable = true;
+    allowReboot = false;
+    flake = "$(readlink -f /etc/nixos)";
+    # channel = "https://nixos.org/channels/nixos-25.05"; # Cannot be set together with flake
+    flags = [
+      "--impure" # Remove this in future
+      "--show-trace"
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+      "-L"
+    ];
+  };
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
   # networking.firewall.allowPing= true;
@@ -701,4 +733,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 }
-
