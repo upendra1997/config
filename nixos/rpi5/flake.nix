@@ -188,6 +188,10 @@
                       wezterm
                       fzf
                       emacs
+                      cloudflared
+                    ]
+                    ++ [
+                      # programming languages
                       pyright
                       clang
                       gdb
