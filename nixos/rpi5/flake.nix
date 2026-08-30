@@ -233,6 +233,17 @@
 
                 services.cloudflared = {
                   enable = true;
+                  tunnels = {
+                    "e9b9b946-05a8-45d4-a3e1-cfd732ea8c4d" = {
+                      credentialsFile = "/home/hdggxin/.cloudflared/e9b9b946-05a8-45d4-a3e1-cfd732ea8c4d.json";
+                      default = "http_status:444";
+                      ingress = {
+                        # Point your domain to your local Nginx HTTP port
+                        "www.hdggx.in" = "http://localhost:80";
+                        "hdggx.in" = "http://localhost:80";
+                      };
+                    };
+                  };
                 };
 
                 services.nginx = {
